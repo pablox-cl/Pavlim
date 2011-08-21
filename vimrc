@@ -43,7 +43,7 @@ set laststatus=2                      " Always show status bar
 set showcmd                           " Show command in bottom right portion of the screen
 set linespace=3                       " Prefer a slightly higher line height
 set showmatch                         " Show matching brackets
-set splitbelow                	      " Split windows below the current window
+set splitbelow                        " Split windows below the current window
 " TODO session settings
 " set sessionoptions=resize,winpos,winsize,buffers,tabpages,folds,curdir,help
 set number                            " Show line numbers OR,...
@@ -118,6 +118,12 @@ if has("autocmdtocmd")
     \ exe "normal! g'\"" |
     \ endif
 endif
+
+" Removes trailing spaces
+function RemoveTrailingSpaces()
+  %s/\s*$//
+  ''
+endfunction
 
 ""
 "" Mappings

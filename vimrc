@@ -12,6 +12,7 @@
 "  call pathogen#runtime_prepend_subdirectories(file)
 "endfunction
 
+" Include user's local vim config
 if filereadable(expand("~/.vimrc.before"))
   source ~/.vimrc.before
 endif
@@ -483,7 +484,7 @@ nnoremap <Leader>d :cd ~/Desktop<cr>:e.<cr>
 ""
 "" Customizations
 ""
-
+" Include user's local vim config
 if filereadable(expand("~/.vimrc.after"))
   source ~/.vimrc.after
 endif

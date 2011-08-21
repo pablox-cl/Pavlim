@@ -44,6 +44,7 @@ set showcmd                           " Show command in bottom right portion of 
 set linespace=3                       " Prefer a slightly higher line height
 set showmatch                         " Show matching brackets
 set splitbelow                        " Split windows below the current window
+set colorcolumn=+3                    " Displays a vertical column added/substraced from textwidth (>= Vim 7.3)
 " TODO session settings
 " set sessionoptions=resize,winpos,winsize,buffers,tabpages,folds,curdir,help
 set number                            " Show line numbers OR,...

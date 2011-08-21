@@ -44,35 +44,35 @@ set showcmd                           " Show command in bottom right portion of 
 set linespace=3                       " Prefer a slightly higher line height
 set showmatch                         " Show matching brackets
 set splitbelow                	      " Split windows below the current window
-" TODO session settings  
-" set sessionoptions=resize,winpos,winsize,buffers,tabpages,folds,curdir,help  
+" TODO session settings
+" set sessionoptions=resize,winpos,winsize,buffers,tabpages,folds,curdir,help
 set number                            " Show line numbers OR,...
 "set relativenumber                    " Relative line numbers (>= Vim 7.3)
 "set autocmdtowrite                         " Write the old file out when switching between files
 "set mouse=a
-"set mousehide                         " Hide mouse when typing  
+"set mousehide                         " Hide mouse when typing
 "set hidden                            " Switch between buffers without saving
 
 filetype plugin indent on             " Enable filetype use
 syntax enable                         " Turn on syntax highlighting allowing local overrides
 
 " Source the vimrc file after saving it.
-" This way, you don't have to reload Vim to see the changes.  
-if has("autocmdtocmd")  
-    autocmdgroup myvimrchooks  
-        autocmd!  
-        autocmdtocmd bufwritepost .vimrc source ~/.vimrc  
-    autocmdgroup END  
-endif  
+" This way, you don't have to reload Vim to see the changes.
+if has("autocmdtocmd")
+    autocmdgroup myvimrchooks
+        autocmd!
+        autocmdtocmd bufwritepost .vimrc source ~/.vimrc
+    autocmdgroup END
+endif
 
 " No blinking cursor. See http://www.linuxpowertop.org/known.php
 let &guicursor = &guicursor . ",a:blinkon0"
 
-" Saves file when Vim window loses focus  
+" Saves file when Vim window loses focus
 "autocmd FocusLost * :wa
 
 "Ever notice a slight lag after typing the Leader key + command? This lowers
-"the timeout.  
+"the timeout.
 "set timeoutlen=500
 
 ""
@@ -103,8 +103,8 @@ endfunction
 "  map <buffer> <Leader>p :Hammer<CR>
 "endfunction
 
-" Alphabetically sort CSS properties in file with :SortCSS  
-":command! SortCSS :g#\({\n\)\@<=#.,/}/sort  
+" Alphabetically sort CSS properties in file with :SortCSS
+":command! SortCSS :g#\({\n\)\@<=#.,/}/sort
 
 " TODO: Check if this works.
 function s:SortCSS()
@@ -126,14 +126,14 @@ endif
 " Set the Leader key
 let mapLeader = ","
 
-"Saves time; maps the spacebar to colon  
-nmap <space> :  
+"Saves time; maps the spacebar to colon
+nmap <space> :
 
-"Map escape key to jj -- much faster  
-imap jj <esc>  
+"Map escape key to jj -- much faster
+imap jj <esc>
 
-"TODO: Map code completion to , + tab  
-"imap <Leader><tab> <C-x><C-o> 
+"TODO: Map code completion to , + tab
+"imap <Leader><tab> <C-x><C-o>
 
 " Map F1 key to Esc.
 inoremap <F1> <ESC>
@@ -141,7 +141,7 @@ nnoremap <F1> <ESC>
 vnoremap <F1> <ESC>
 
 " F2 toggles indenting when pasting
-set pastetoggle=<F2>                  
+set pastetoggle=<F2>
 
 " Set the keys to turn spell checking on/off
 map <F8> <Esc>:setlocal spell spelllang=en_us<CR>
@@ -153,40 +153,40 @@ cmap w!! w !sudo tee % >/dev/null
 " Check changes from the last save
 nnoremap <Leader>? :DiffSaved<CR>
 
-"Hard-wrap paragraphs of text  
+"Hard-wrap paragraphs of text
 nnoremap <Leader>q gqip
 
-" No more stretching for navigating files  
-"noremap h ;  
-"noremap j h  
-"noremap k gj  
-"noremap l gk  
+" No more stretching for navigating files
+"noremap h ;
+"noremap j h
+"noremap k gj
+"noremap l gk
 "noremap ; l
 
-" Easier window navigation  
-nmap <C-h> <C-w>h  
-nmap <C-j> <C-w>j  
-nmap <C-k> <C-w>k  
-nmap <C-l> <C-w>l  
+" Easier window navigation
+nmap <C-h> <C-w>h
+nmap <C-j> <C-w>j
+nmap <C-k> <C-w>k
+nmap <C-l> <C-w>l
 
 " Map the arrow keys to be based on display lines, not physical lines
 map <Down> gj
 map <Up> gk
 
-" Shortcut for editing  vimrc file in a new tab  
+" Shortcut for editing  vimrc file in a new tab
 nmap <Leader>ev :tabedit $MYVIMRC<CR>
 
-" Automatically change current directory to that of the file in the buffer  
-autocmd BufEnter * cd %:p:h  
+" Automatically change current directory to that of the file in the buffer
+autocmd BufEnter * cd %:p:h
 
-"Bubble single lines (kicks butt)  
+"Bubble single lines (kicks butt)
 "http://vimcasts.org/episodes/bubbling-text/
-nmap <C-Up> ddkP 
+nmap <C-Up> ddkP
 nmap <C-Down> ddp
 
-"Bubble multiple lines  
-vmap <C-Up> xkP`[V`]  
-vmap <C-Down> xp`[V`] 
+"Bubble multiple lines
+vmap <C-Up> xkP`[V`]
+vmap <C-Down> xp`[V`]
 
 " Opens a tab edit command with the path of the currently edited file filled in
 " Normal mode: <Leader>t
@@ -197,7 +197,7 @@ map <Leader>te :tabe <C-R>=expand("%:p:h") . "/" <CR>
 map <Leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
 
 " Open the directory browser for the directory of the current path in a
-" new tab. 
+" new tab.
 " <Leader>te
 map <Leader>te :tabe <C-R>=expand("%:p:h") . "/" <CR>
 
@@ -208,16 +208,16 @@ map <Leader>te :tabe <C-R>=expand("%:p:h") . "/" <CR>
 " Command mode: Ctrl+P
 cmap <C-P> <C-R>=expand("%:p:h") . "/" <CR>
 
-" Get to home dir easier  
-" <Leader>hm is easier to type than :cd ~  
+" Get to home dir easier
+" <Leader>hm is easier to type than :cd ~
 nmap <Leader>hm :cd ~/ <CR>
 
-"Opens a vertical split and switches over (\v)  
+"Opens a vertical split and switches over (\v)
 "nnoremap <Leader>v <C-w>v<C-w>l
 
-" TODO: Shortcut to opening a virtual split to right of current pane  
+" TODO: Shortcut to opening a virtual split to right of current pane
 " Makes more sense than opening to the left
-"nnoremap <Leader>bv :bel vsp  
+"nnoremap <Leader>bv :bel vsp
 
 "Delete all buffers (via Derek Wyatt)
 nmap <silent> ,da :exec "1," . bufnr('$') . "bd"<CR>
@@ -225,8 +225,8 @@ nmap <silent> ,da :exec "1," . bufnr('$') . "bd"<CR>
 ""
 "" Backups
 ""
-set backupdir=~/.vim/tmp/backup// " backups  
-set directory=~/.vim/tmp/swap// " swap files  
+set backupdir=~/.vim/tmp/backup// " backups
+set directory=~/.vim/tmp/swap// " swap files
 
 ""
 "" Whitespace/tab stuff
@@ -263,7 +263,7 @@ set foldenable
 nnoremap <Leader>ft Vatzf
 
 " TODO Omnifunction/wildmode?
-" set wildmenu 
+" set wildmenu
 " set wildmode=longest:full,list:full
 
 " set wildmode=list:longest,list:full as janus
@@ -273,13 +273,13 @@ nnoremap <Leader>ft Vatzf
 " set wildignore+=*.o,*.obj,.git,*.rbc,*.class,.svn,vendor/gems/*
 " setlocal ofu=syntaxcomplete#Complete  " enable syntax based omni completion
 
-"http://vim.wikia.com/wiki/Make_Vim_completion_popup_menu_work_just_like_in_an_IDE  
+"http://vim.wikia.com/wiki/Make_Vim_completion_popup_menu_work_just_like_in_an_IDE
 "set completeopt=longest,menuone
-"inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"  
-"inoremap <expr> <C-n> pumvisible() ? '<C-n>' :  
-"\ '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'  
-"inoremap <expr> <M-,> pumvisible() ? '<C-n>' :  
-"\ '<C-x><C-o><C-n><C-p><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'  
+"inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+"inoremap <expr> <C-n> pumvisible() ? '<C-n>' :
+"\ '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
+"inoremap <expr> <M-,> pumvisible() ? '<C-n>' :
+"\ '<C-x><C-o><C-n><C-p><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
 
 ""
 "" Filetype
@@ -328,8 +328,8 @@ autocmd BufRead,BufNewFile {Gemfile,Rakefile,Vagrantfile,Thorfile,config.ru} set
 " add json syntax highlighting
 autocmd BufNewFile,BufRead *.json set ft=javascript
 
-"Set up an HTML5 template for all new .html files  
-"autocmd BufNewFile * silent! 0r $VIMHOME/templates/%:e.tpl  
+"Set up an HTML5 template for all new .html files
+"autocmd BufNewFile * silent! 0r $VIMHOME/templates/%:e.tpl
 
 ""
 "" Plugins
@@ -345,7 +345,7 @@ let NERDChristmasTree = 1
 let NERDTreeHighlightCursorline = 1
 let NERDTreeMapActivateNode='<CR>'
 
-" NERDTree - Autopen and focus cursor in new document  
+" NERDTree - Autopen and focus cursor in new document
 "autocmd VimEnter * NERDTree
 "autocmd VimEnter * wincmd p
 
@@ -439,7 +439,7 @@ set noequalalways
 " Command-T configuration
 let g:CommandTMaxHeight=20
 
-"Faster shortcut for commenting. Requires T-Comment plugin  
+"Faster shortcut for commenting. Requires T-Comment plugin
 " TODO this or nerdcommenter?
 "map <Leader>c <c-_><c-_>
 
@@ -447,7 +447,7 @@ let g:CommandTMaxHeight=20
 "" Colors and eye-candy
 ""
 
-"Here's 100 to choose from: http://www.vim.org/scripts/script.php?script_id=625  
+"Here's 100 to choose from: http://www.vim.org/scripts/script.php?script_id=625
 colorscheme railscasts_alt
 "colorscheme desert
 
@@ -455,27 +455,27 @@ colorscheme railscasts_alt
 "" Miscellaneous stuff
 ""
 
-"Helpeful abbreviations  
-iab lorem Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.  
-iab llorem Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.   
+"Helpeful abbreviations
+iab lorem Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+iab llorem Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
 
-"Spelling corrects. Just for example. Add yours below.  
+"Spelling corrects. Just for example. Add yours below.
 iab teh the
 iab Teh The
 
-" Create dictionary for custom expansions  
+" Create dictionary for custom expansions
 "set dictionary+=.vim/dict.txt
 
 let macvim_hig_shift_movement = 1     " mvim shift-arrow-keys (required in vimrc)
 
-"Hide MacVim toolbar by defautocmdlt  
+"Hide MacVim toolbar by defautocmdlt
 set go-=T
 
-"Load the current buffer in Firefox - Mac specific.  
-abbrev ff :! open -a firefox.app %:p<cr>  
+"Load the current buffer in Firefox - Mac specific.
+abbrev ff :! open -a firefox.app %:p<cr>
 
-"Map a change directory to the desktop - Mac specific  
-nnoremap <Leader>d :cd ~/Desktop<cr>:e.<cr>  
+"Map a change directory to the desktop - Mac specific
+nnoremap <Leader>d :cd ~/Desktop<cr>:e.<cr>
 
 ""
 "" Customizations

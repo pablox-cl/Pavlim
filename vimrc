@@ -451,10 +451,6 @@ let g:CommandTMaxHeight=20
 colorscheme railscasts_alt
 "colorscheme desert
 
-"Set font type and size. Depends on the resolution. Larger screens, prefer h20
-" TODO:in gvim
-"set guifont=Menlo:h14
-
 ""
 "" Miscellaneous stuff
 ""

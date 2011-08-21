@@ -41,7 +41,6 @@ set title                             " Show title
 set t_Co=256                          " Uses 256 colors
 set laststatus=2                      " Always show status bar
 set showcmd                           " Show command in bottom right portion of the screen
-set linespace=3                       " Prefer a slightly higher line height
 set showmatch                         " Show matching brackets
 set splitbelow                        " Split windows below the current window
 set colorcolumn=+3                    " Displays a vertical column added/substraced from textwidth (>= Vim 7.3)

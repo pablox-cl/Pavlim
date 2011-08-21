@@ -13,6 +13,7 @@ set guioptions-=T                       " No toolbar
 set guioptions-=r                       " No right scrollbar
 set guioptions-=L                       " No left scrollbar when v.split
 set guioptions+=Aa                      " Highlighted text can be copy/pasted from/to vim
+set linespace=3                         " Prefer a slightly higher line height
 
 set visualbell                          " Don't beep
 

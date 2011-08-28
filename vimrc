@@ -171,6 +171,10 @@ vnoremap <F1> <ESC>
 " F2 toggles indenting when pasting
 set pastetoggle=<F2>
 
+" Paste from clipboard
+map <Leader>p "+gP
+map <MouseMiddle> <Esc>"*p
+
 " Set the keys to turn spell checking on/off
 map <F8> <Esc>:setlocal spell spelllang=en_us<CR>
 map <F9> <Esc>:setlocal nospell<CR>

@@ -270,11 +270,12 @@ set backupdir=~/.vim/tmp/backup// " backups
 set directory=~/.vim/tmp/swap// " swap files
 
 ""
-"" Whitespace/tab stuff
+"" Whitespace/tab/indent stuff
 ""
 set nowrap                            " Don't wrap lines
 set autocmdtoindent
 set smarttab                          " Smart tabulation and backspace
+set smartindent
 set tabstop=2                         " A tab is 2 (two) spaces
 set shiftwidth=2                      " An autocmdtoindent (with <<) is two spaces
 set softtabstop=2                     " Two spaces when editing

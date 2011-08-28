@@ -274,6 +274,7 @@ set directory=~/.vim/tmp/swap// " swap files
 ""
 set nowrap                            " Don't wrap lines
 set autocmdtoindent
+set smarttab                          " Smart tabulation and backspace
 set tabstop=2                         " A tab is 2 (two) spaces
 set shiftwidth=2                      " An autocmdtoindent (with <<) is two spaces
 set softtabstop=2                     " Two spaces when editing

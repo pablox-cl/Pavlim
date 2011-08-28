@@ -139,10 +139,10 @@ endfunction
 " Set the Leader key
 let mapLeader = ","
 
-"Saves time; maps the spacebar to colon
+" Saves time; maps the spacebar to colon
 nmap <space> :
 
-"Map escape key to jj -- much faster
+" Map escape key to jj -- much faster
 imap jj <esc>
 
 "TODO: Map code completion to , + tab
@@ -166,7 +166,7 @@ cmap w!! w !sudo tee % >/dev/null
 " Check changes from the last save
 nnoremap <Leader>? :DiffSaved<CR>
 
-"Hard-wrap paragraphs of text
+" Hard-wrap paragraphs of text
 nnoremap <Leader>q gqip
 
 " No more stretching for navigating files
@@ -205,12 +205,12 @@ nmap <Leader>ev :tabedit $MYVIMRC<CR>
 " Automatically change current directory to that of the file in the buffer
 autocmd BufEnter * cd %:p:h
 
-"Bubble single lines (kicks butt)
-"http://vimcasts.org/episodes/bubbling-text/
+" Bubble single lines (kicks butt)
+" http://vimcasts.org/episodes/bubbling-text/
 nmap <C-Up> ddkP
 nmap <C-Down> ddp
 
-"Bubble multiple lines
+" Bubble multiple lines
 vmap <C-Up> xkP`[V`]
 vmap <C-Down> xp`[V`]
 
@@ -238,14 +238,14 @@ cmap <C-P> <C-R>=expand("%:p:h") . "/" <CR>
 " <Leader>hm is easier to type than :cd ~
 nmap <Leader>hm :cd ~/ <CR>
 
-"Opens a vertical split and switches over (\v)
+" Opens a vertical split and switches over (\v)
 "nnoremap <Leader>v <C-w>v<C-w>l
 
 " TODO: Shortcut to opening a virtual split to right of current pane
 " Makes more sense than opening to the left
 "nnoremap <Leader>bv :bel vsp
 
-"Delete all buffers (via Derek Wyatt)
+" Delete all buffers (via Derek Wyatt)
 nmap <silent> ,da :exec "1," . bufnr('$') . "bd"<CR>
 
 ""
@@ -257,14 +257,14 @@ set directory=~/.vim/tmp/swap// " swap files
 ""
 "" Whitespace/tab stuff
 ""
-set nowrap                                  " don't wrap lines
+set nowrap                                  " Don't wrap lines
 set autocmdtoindent
-set tabstop=2                               " a tab is 2 (two) spaces
-set shiftwidth=2                            " an autocmdtoindent (with <<) is two spaces
-set softtabstop=2                           " two spaces when editing
-set expandtab                               " use spaces, not tabs
-set list listchars=tab:▷⋅,trail:⋅,nbsp:⋅           " show non-printing characters for tabs and trailing spaces
-set backspace=indent,eol,start              " allow backspacing over everything
+set tabstop=2                               " A tab is 2 (two) spaces
+set shiftwidth=2                            " An autocmdtoindent (with <<) is two spaces
+set softtabstop=2                           " Two spaces when editing
+set expandtab                               " Use spaces, not tabs
+set list listchars=tab:▷⋅,trail:⋅,nbsp:⋅    " Show non-printing characters for tabs and trailing spaces
+set backspace=indent,eol,start              " Allow backspacing over everything
 
 " Searching
 set hlsearch
@@ -486,11 +486,11 @@ colorscheme railscasts_alt
 "" Miscellaneous stuff
 ""
 
-"Helpeful abbreviations
+" Helpeful abbreviations
 iab lorem Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
 iab llorem Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
 
-"Spelling corrects. Just for example. Add yours below.
+" Spelling corrects. Just for example. Add yours below.
 iab teh the
 iab Teh The
 
@@ -499,13 +499,13 @@ iab Teh The
 
 let macvim_hig_shift_movement = 1     " mvim shift-arrow-keys (required in vimrc)
 
-"Hide MacVim toolbar by defautocmdlt
+" Hide MacVim toolbar by defautocmdlt
 set go-=T
 
-"Load the current buffer in Firefox - Mac specific.
+" Load the current buffer in Firefox - Mac specific.
 abbrev ff :! open -a firefox.app %:p<cr>
 
-"Map a change directory to the desktop - Mac specific
+" Map a change directory to the desktop - Mac specific
 nnoremap <Leader>d :cd ~/Desktop<cr>:e.<cr>
 
 ""

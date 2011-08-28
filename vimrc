@@ -380,7 +380,7 @@ endif
 " Markdown and txt files should wrap
 autocmd BufRead,BufNewFile *.{md,markdown,mdown,mkd,mkdn,txt} call s:setupWrapping()
 
-" make Python (and sh) follow PEP8 ( http://www.python.org/dev/peps/pep-0008/ )
+" Make Python (and sh) follow PEP8 ( http://www.python.org/dev/peps/pep-0008/ )
 autocmd FileType python,sh set softtabstop=4 tabstop=4 shiftwidth=4 textwidth=79
 
 " make uses real tabs (not spaces)
@@ -389,11 +389,27 @@ autocmd FileType make set noexpandtab
 " Thorfile, Rakefile, Vagrantfile and Gemfile are Ruby
 autocmd BufRead,BufNewFile {Gemfile,Rakefile,Vagrantfile,Thorfile,config.ru} set filetype=ruby
 
-" add json syntax highlighting
+" Add json syntax highlighting
 autocmd BufNewFile,BufRead *.json set ft=javascript
 
 "Set up an HTML5 template for all new .html files
 "autocmd BufNewFile * silent! 0r $VIMHOME/templates/%:e.tpl
+
+" rst
+autocmd BufNewFile,BufRead *.rst setlocal ft=rst
+autocmd FileType rst setlocal expandtab shiftwidth=4 tabstop=4 softtabstop=4 colorcolumn=79
+\ formatoptions+=nqt textwidth=74
+
+" CSS
+autocmd FileType css setlocal expandtab shiftwidth=4 tabstop=4 softtabstop=4
+autocmd FileType css set omnifunc=csscomplete#CompleteCSS
+
+" Javascript
+autocmd FileType javascript setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2 colorcolumn=79
+let javascript_enable_domhtmlcss=1
+
+" Vim
+autocmd FileType vim setlocal expandtab shiftwidth=2 tabstop=8 softtabstop=2
 
 ""
 "" Plugins

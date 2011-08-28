@@ -71,9 +71,15 @@ let &guicursor = &guicursor . ",a:blinkon0"
 " Saves file when Vim window loses focus
 "autocmd FocusLost * :wa
 
-"Ever notice a slight lag after typing the Leader key + command? This lowers
-"the timeout.
+" Ever notice a slight lag after typing the Leader key + command? This lowers
+" the timeout.
 "set timeoutlen=500
+
+" Statusline setup
+set statusline+=%=                    " Left/right separator
+set statusline+=%c,                   " Cursor column
+set statusline+=%l/%L                 " Cursor line/total lines
+set statusline+=\ %P                  " Percent through file
 
 ""
 "" Helpers
@@ -400,6 +406,9 @@ map <Leader>s :call ToggleScratch()<CR>
 let g:syntastic_enable_signs=1
 let g:syntastic_quiet_warnings=1
 
+" Fugitive (Git)
+set statusline+=%{fugitive#statusline()}
+
 " Gist-vim
 if has("mac")
   let g:gist_clip_command = 'pbcopy'
@@ -435,6 +444,9 @@ autocmd vimenter * call ExtractSnips("~/.vim/snippets/html", "php")
 
 " Rails - turn off rails related things in statusbar
 "let g:rails_statusline=0
+
+" RVM
+set statusline+=%{exists('g:loaded_rvm')?rvm#statusline():''}
 
 " LaTeX - configuration
 set grepprg=grep\ -nH\ $*

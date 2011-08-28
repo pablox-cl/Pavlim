@@ -392,9 +392,6 @@ autocmd BufRead,BufNewFile {Gemfile,Rakefile,Vagrantfile,Thorfile,config.ru} set
 " Add json syntax highlighting
 autocmd BufNewFile,BufRead *.json set ft=javascript
 
-"Set up an HTML5 template for all new .html files
-"autocmd BufNewFile * silent! 0r $VIMHOME/templates/%:e.tpl
-
 " rst
 autocmd BufNewFile,BufRead *.rst setlocal ft=rst
 autocmd FileType rst setlocal expandtab shiftwidth=4 tabstop=4 softtabstop=4 colorcolumn=79
@@ -410,6 +407,51 @@ let javascript_enable_domhtmlcss=1
 
 " Vim
 autocmd FileType vim setlocal expandtab shiftwidth=2 tabstop=8 softtabstop=2
+
+" Template language support (SGML / XML too)
+" ------------------------------------------
+" and disable that stupid html rendering (like making stuff bold etc)
+" See: https://github.com/mariocesar/dotfiles
+
+fun! SelectHTML()
+  let n = 1
+  while n < 50 && n < line("$")
+" check for jinja
+    if getline(n) =~ '{%\s*\(extends\|block\|macro\|set\|if\|for\|include\|trans\)\>'
+      set ft=htmljinja
+      return
+    endif
+" check for mako
+    if getline(n) =~ '<%\(def\|inherit\)'
+      set ft=mako
+      return
+    endif
+" check for genshi
+    if getline(n) =~ 'xmlns:py\|py:\(match\|for\|if\|def\|strip\|xmlns\)'
+      set ft=genshi
+      return
+    endif
+    let n = n + 1
+  endwhile
+" go with html
+  set ft=html
+endfun
+
+autocmd FileType html,xhtml,xml,htmldjango,htmljinja,eruby,mako setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
+autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
+autocmd BufNewFile,BufRead *.rhtml setlocal ft=eruby
+autocmd BufNewFile,BufRead *.mako setlocal ft=mako
+autocmd BufNewFile,BufRead *.tmpl setlocal ft=htmljinja
+autocmd BufNewFile,BufRead *.py_tmpl setlocal ft=python
+autocmd BufNewFile,BufRead *.html,*.htm call SelectHTML()
+let html_no_rendering=1
+
+" TODO: CloseTag. Intelligently close HTML tags
+autocmd FileType html,htmldjango,jinjahtml,eruby,mako let b:closetag_html_style=1
+autocmd FileType html,xhtml,xml,htmldjango,jinjahtml,eruby,mako source ~/.vim/bundle/closetag/plugin/closetag.vim
+
+" Set up an HTML5 template for all new .html files
+"autocmd BufNewFile * silent! 0r $VIMHOME/templates/%:e.tpl
 
 ""
 "" Plugins

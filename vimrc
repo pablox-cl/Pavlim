@@ -294,10 +294,9 @@ nnoremap <Leader><space> :nohlsearch <CR>
 "" Tab completion and folding
 ""
 
-" Enable code folding
+" Enable code folding by syntax
 set foldmethod=syntax
-set nofoldenable                            "
-"            " folding uses syntax for folding
+set nofoldenable                      " But don't start with it
 
 " Shortcut to fold tags with Leader (usually \) + ft
 nnoremap <Leader>ft Vatzf

@@ -248,6 +248,12 @@ nmap <Leader>hm :cd ~/ <CR>
 " Delete all buffers (via Derek Wyatt)
 nmap <silent> ,da :exec "1," . bufnr('$') . "bd"<CR>
 
+" Load the current buffer in Firefox - Mac specific.
+abbrev ff :! open -a firefox.app %:p<cr>
+
+" Map a change directory to the desktop - Mac specific
+nnoremap <Leader>d :cd ~/Desktop<cr>:e.<cr>
+
 ""
 "" Backups
 ""
@@ -497,16 +503,7 @@ iab Teh The
 " Create dictionary for custom expansions
 "set dictionary+=.vim/dict.txt
 
-let macvim_hig_shift_movement = 1     " mvim shift-arrow-keys (required in vimrc)
-
-" Hide MacVim toolbar by defautocmdlt
-set go-=T
-
-" Load the current buffer in Firefox - Mac specific.
-abbrev ff :! open -a firefox.app %:p<cr>
-
-" Map a change directory to the desktop - Mac specific
-nnoremap <Leader>d :cd ~/Desktop<cr>:e.<cr>
+let macvim_hig_shift_movement = 1           " mvim shift-arrow-keys (required in vimrc)
 
 ""
 "" Customizations

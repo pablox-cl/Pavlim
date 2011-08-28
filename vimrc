@@ -35,7 +35,9 @@ set nocompatible                      " Don't try to be strictly vi-like
 set modeline
 set modelines=10                      " Use modeline overrides
 set viminfo='20,\"50                  " Use a viminfo file,...
-set history=50                        " Limit history
+set history=100                       " Limit history
+set novisualbell                      " Don't blink on errors...
+set noerrorbells                      " ...and don't sound either
 set ruler                             " Show the cursor position
 set title                             " Show title
 set t_Co=256                          " Uses 256 colors

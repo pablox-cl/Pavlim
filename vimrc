@@ -1,3 +1,5 @@
+set nocompatible                      " Forget about vi compatibility... who cares?
+
 ""
 "" Customizations
 ""
@@ -31,9 +33,9 @@ call pathogen#infect()
 
 set encoding=utf-8
 set backup                            " Enable backup
-set nocompatible                      " Don't try to be strictly vi-like
 set modeline
 set modelines=10                      " Use modeline overrides
+set report=0                          " : commands always print changed line count
 set viminfo='20,\"50                  " Use a viminfo file,...
 set history=100                       " Limit history
 set novisualbell                      " Don't blink on errors...
@@ -275,7 +277,7 @@ set directory=~/.vim/tmp/swap// " swap files
 set nowrap                            " Don't wrap lines
 set autocmdtoindent
 set smarttab                          " Smart tabulation and backspace
-set smartindent
+set smartindent                       " Uses smart indent if there's no indent file
 set tabstop=2                         " A tab is 2 (two) spaces
 set shiftwidth=2                      " An autocmdtoindent (with <<) is two spaces
 set softtabstop=2                     " Two spaces when editing

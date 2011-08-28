@@ -46,6 +46,7 @@ set t_Co=256                          " Uses 256 colors
 set laststatus=2                      " Always show status bar
 set showcmd                           " Show command in bottom right portion of the screen
 set showmatch                         " Show matching brackets
+set matchpairs+=<:>                   " Show matching <> (html mainly) as well
 set splitbelow                        " Split windows below the current window
 set colorcolumn=+3                    " Displays a vertical column added/substraced from textwidth (>= Vim 7.3)
 " TODO session settings
@@ -165,6 +166,9 @@ imap jj <Esc>
 
 "TODO: Map code completion to , + tab
 "imap <Leader><tab> <C-x><C-o>
+
+" Common mistake
+command! W :w
 
 " Map F1 key to Esc.
 inoremap <F1> <ESC>

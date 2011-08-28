@@ -132,6 +132,10 @@ function RemoveTrailingSpaces()
   ''
 endfunction
 
+" Highlight space errors
+let c_space_errors = 1
+let python_space_error_highlight = 1
+
 ""
 "" Mappings
 ""

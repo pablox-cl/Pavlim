@@ -286,8 +286,9 @@ nmap <C-s> :w<CR>
 ""
 "" Backups
 ""
-set backupdir=~/.vim/tmp/backup// " backups
-set directory=~/.vim/tmp/swap// " swap files
+set undodir=~/.vim/tmp/undo//         " undo files
+set backupdir=~/.vim/tmp/backup//     " backups
+set directory=~/.vim/tmp/swap//       " swap files
 
 " Don't write swapfile on most commonly used directories for NFS mounts or USB sticks
 autocmd BufNewFile,BufReadPre /media/*,/mnt/* set directory=~/tmp,/var/tmp,/tmp

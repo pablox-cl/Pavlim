@@ -155,10 +155,10 @@ let python_space_error_highlight = 1
 let mapLeader = ","
 
 " Saves time; maps the spacebar to colon
-nmap <space> :
+nmap <Space> :
 
 " Map escape key to jj -- much faster
-imap jj <esc>
+imap jj <Esc>
 
 "TODO: Map code completion to , + tab
 "imap <Leader><tab> <C-x><C-o>
@@ -313,7 +313,7 @@ set ignorecase
 set smartcase
 
 " Remove highlighting search results
-nnoremap <Leader><space> :nohlsearch <CR>
+nnoremap <Leader><Space> :nohlsearch <CR>
 
 ""
 "" Tab completion and folding

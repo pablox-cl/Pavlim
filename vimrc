@@ -147,6 +147,9 @@ endfunction
 let c_space_errors = 1
 let python_space_error_highlight = 1
 
+" Switch to working directory of the open file
+autocmd BufEnter * lcd %:p:h
+
 ""
 "" Mappings
 ""
@@ -286,6 +289,9 @@ nmap <C-s> :w<CR>
 set backupdir=~/.vim/tmp/backup// " backups
 set directory=~/.vim/tmp/swap// " swap files
 
+" Don't write swapfile on most commonly used directories for NFS mounts or USB sticks
+autocmd BufNewFile,BufReadPre /media/*,/mnt/* set directory=~/tmp,/var/tmp,/tmp
+
 ""
 "" Whitespace/tab/indent stuff
 ""
@@ -348,12 +354,6 @@ nnoremap <Leader>ft Vatzf
 ""
 "" Filetype
 ""
-
-" Don't write swapfile on most commonly used directories for NFS mounts or USB sticks
-autocmd BufNewFile,BufReadPre /media/*,/mnt/* set directory=~/tmp,/var/tmp,/tmp
-
-" Switch to working directory of the open file
-autocmd BufEnter * lcd %:p:h
 
 if has("cscope") && filereadable("/usr/bin/cscope")
    set csprg=/usr/bin/cscope

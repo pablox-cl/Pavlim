@@ -266,14 +266,14 @@ set directory=~/.vim/tmp/swap// " swap files
 ""
 "" Whitespace/tab stuff
 ""
-set nowrap                                  " Don't wrap lines
+set nowrap                            " Don't wrap lines
 set autocmdtoindent
-set tabstop=2                               " A tab is 2 (two) spaces
-set shiftwidth=2                            " An autocmdtoindent (with <<) is two spaces
-set softtabstop=2                           " Two spaces when editing
-set expandtab                               " Use spaces, not tabs
+set tabstop=2                         " A tab is 2 (two) spaces
+set shiftwidth=2                      " An autocmdtoindent (with <<) is two spaces
+set softtabstop=2                     " Two spaces when editing
+set expandtab                         " Use spaces, not tabs
 set list listchars=tab:▷⋅,trail:⋅,nbsp:⋅    " Show non-printing characters for tabs and trailing spaces
-set backspace=indent,eol,start              " Allow backspacing over everything
+set backspace=indent,eol,start        " Allow backspacing over everything
 
 " Mapping for textmate-like indentation
 nmap <D-[> <<
@@ -295,9 +295,9 @@ nnoremap <Leader><space> :nohlsearch <CR>
 ""
 
 " Enable code folding
-set foldenable
-"setlocal foldmethod=syntax            " folding uses syntax for folding
-"setlocal nofoldenable                 " don't start with folded lines
+set foldmethod=syntax
+set nofoldenable                            "
+"            " folding uses syntax for folding
 
 " Shortcut to fold tags with Leader (usually \) + ft
 nnoremap <Leader>ft Vatzf
@@ -446,8 +446,8 @@ runtime! macros/matchit.vim
 "let vala_no_tab_space_error = 1
 
 " Ack - uncomment suitable line if configuration is necessary
-"let g:ackprg="ack -H --nocolor --nogroup"         " if ack --version < 1.92
-"let g:ackprg="ack-grep -H --nocolor --nogroup"    " for Debian/Ubuntu
+"let g:ackprg="ack -H --nocolor --nogroup"         " If ack --version < 1.92
+"let g:ackprg="ack-grep -H --nocolor --nogroup"    " For Debian/Ubuntu
 
 " Conque - lautocmdnch terminal
 nnoremap <Leader>t :ConqueTermSplit bash<CR>
@@ -512,7 +512,7 @@ iab Teh The
 " Create dictionary for custom expansions
 "set dictionary+=.vim/dict.txt
 
-let macvim_hig_shift_movement = 1           " mvim shift-arrow-keys (required in vimrc)
+let macvim_hig_shift_movement = 1     " mvim shift-arrow-keys (required in vimrc)
 
 ""
 "" Customizations

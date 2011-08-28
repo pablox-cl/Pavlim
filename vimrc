@@ -197,6 +197,10 @@ nmap <C-j> <C-w>j
 nmap <C-k> <C-w>k
 nmap <C-l> <C-w>l
 
+" Easier tab navigation
+noremap <silent> <C-Tab> :tabnext<cr>
+noremap <silent> <C-S-Tab> :tabprevious<cr>
+
 " Mapping to keep navigation based on display lines instead
 " numbered lines
 vmap <D-j> gj

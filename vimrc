@@ -76,6 +76,7 @@ let &guicursor = &guicursor . ",a:blinkon0"
 "set timeoutlen=500
 
 " Statusline setup
+set statusline=%f                     " Tail of the filename
 set statusline+=%=                    " Left/right separator
 set statusline+=%c,                   " Cursor column
 set statusline+=%l/%L                 " Cursor line/total lines
@@ -262,8 +263,7 @@ set tabstop=2                               " a tab is 2 (two) spaces
 set shiftwidth=2                            " an autocmdtoindent (with <<) is two spaces
 set softtabstop=2                           " two spaces when editing
 set expandtab                               " use spaces, not tabs
-set list listchars=tab:\ \ ,trail:·         " for tabs and trailing spaces
-" set listchars=trail:⋅,nbsp:⋅,tab:▷⋅                 " for tabs and trailing spaces
+set list listchars=tab:▷⋅,trail:⋅,nbsp:⋅           " show non-printing characters for tabs and trailing spaces
 set backspace=indent,eol,start              " allow backspacing over everything
 
 " Searching
@@ -279,12 +279,12 @@ nnoremap <Leader><space> :nohlsearch <CR>
 "" Tab completion and folding
 ""
 
-"Enable code folding
+" Enable code folding
 set foldenable
 "setlocal foldmethod=syntax            " folding uses syntax for folding
 "setlocal nofoldenable                 " don't start with folded lines
 
-"Shortcut to fold tags with Leader (usually \) + ft
+" Shortcut to fold tags with Leader (usually \) + ft
 nnoremap <Leader>ft Vatzf
 
 " TODO Omnifunction/wildmode?

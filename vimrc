@@ -254,6 +254,9 @@ abbrev ff :! open -a firefox.app %:p<cr>
 " Map a change directory to the desktop - Mac specific
 nnoremap <Leader>d :cd ~/Desktop<cr>:e.<cr>
 
+" Saves file
+nmap <C-s> :w<CR>
+
 ""
 "" Backups
 ""
@@ -271,6 +274,12 @@ set softtabstop=2                           " Two spaces when editing
 set expandtab                               " Use spaces, not tabs
 set list listchars=tab:▷⋅,trail:⋅,nbsp:⋅    " Show non-printing characters for tabs and trailing spaces
 set backspace=indent,eol,start              " Allow backspacing over everything
+
+" Mapping for textmate-like indentation
+nmap <D-[> <<
+nmap <D-]> >>
+vmap <D-[> <gv
+vmap <D-]> >gv
 
 " Searching
 set hlsearch

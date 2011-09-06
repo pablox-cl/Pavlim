@@ -4,6 +4,41 @@ if filereadable(expand("~/.gvimrc.before"))
 endif
 
 ""
+"" Mouse control
+"" See: http://vimdoc.sourceforge.net/htmldoc/gui.html#gui-mouse
+""
+
+" Despite its name, make the mouse work like any 'window' application;
+" right click displays a pop menu, selecting text with the mouse and writing
+" will overwrite the text (entering SELECT mode instead VISUAL mode) and
+" other thingies
+"set behave=mswin
+
+" The following script would map a few keys to a more 'classic' editor;
+" ctrl + c and ctrl +v copy/paste for example.
+" Note that the following is *not* compatible because it maps keys that are
+" used for other stuff
+" If you don't mind, uncomment the following:
+"source $VIMRUNTIME/mswin.vim
+
+" The behave function (see above) is just a 'bundle' of options that can be
+" configured separated.
+
+" Shift-key + arrow text selection
+set keymodel=startsel,stopsel
+
+" It just feels more comfortable to have the cursor at the end of the
+" selection
+set selection=exclusive
+
+" Right click pop-menu
+"set mousemodel=popup
+
+" Use SELECT mode when...
+" Possible answers (separated comma of words) are mouse, key and cmd
+"set selectmode=mouse,key
+
+""
 "" Most stuff extracted from:
 "" http://github.com/carlhuda/janus/blob/master/gvimrc
 ""
@@ -14,8 +49,6 @@ set guioptions-=r                       " No right scrollbar
 set guioptions-=L                       " No left scrollbar when v.split
 set guioptions+=Aa                      " Highlighted text can be copy/pasted from/to vim
 set linespace=3                         " Prefer a slightly higher line height
-
-set visualbell                          " Don't beep
 
 colorscheme solarized
 "colorscheme molokai

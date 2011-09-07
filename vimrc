@@ -63,10 +63,10 @@ syntax enable                         " Turn on syntax highlighting allowing loc
 
 " Source the vimrc file after saving it.
 " This way, you don't have to reload Vim to see the changes.
-if has("autocmdtocmd")
+if has("autocmd")
     autocmdgroup myvimrchooks
         autocmd!
-        autocmdtocmd bufwritepost .vimrc source ~/.vimrc
+        autocmd bufwritepost .vimrc source ~/.vimrc
     autocmdgroup END
 endif
 

@@ -64,10 +64,10 @@ syntax enable                         " Turn on syntax highlighting allowing loc
 " Source the vimrc file after saving it.
 " This way, you don't have to reload Vim to see the changes.
 if has("autocmd")
-    autocmdgroup myvimrchooks
+    augroup myvimrchooks
         autocmd!
-        autocmd bufwritepost .vimrc source ~/.vimrc
-    autocmdgroup END
+        autocmd BufWritePost .vimrc source ~/.vimrc
+    augroup END
 endif
 
 " No blinking cursor. See http://www.linuxpowertop.org/known.php
@@ -301,7 +301,7 @@ autocmd BufNewFile,BufReadPre /media/*,/mnt/* set directory=~/tmp,/var/tmp,/tmp
 "" Whitespace/tab/indent stuff
 ""
 set nowrap                            " Don't wrap lines
-set autocmdtoindent
+set autoindent
 set smarttab                          " Smart tabulation and backspace
 set smartindent                       " Uses smart indent if there's no indent file
 set tabstop=2                         " A tab is 2 (two) spaces

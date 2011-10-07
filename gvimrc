@@ -43,7 +43,7 @@ set selection=exclusive
 "" http://github.com/carlhuda/janus/blob/master/gvimrc
 ""
 
-set guifont=Inconsolata-g\ 10           " Default font
+set guifont=Inconsolata-g\ 10           " Default font. Download here: http://www.fantascienza.net/leonardo/ar/inconsolatag/inconsolata-g_font.zip
 set guioptions-=T                       " No toolbar
 set guioptions-=r                       " No right scrollbar
 set guioptions-=L                       " No left scrollbar when v.split

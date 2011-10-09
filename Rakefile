@@ -19,3 +19,12 @@ desc "Init pavlim and update vim plugins"
 task :init => :pathogen_install do
   system "git submodule update --init"
 end
+
+desc "Update pavlim"
+task :update_pavlim do
+  system "git pull git://github.com/PaBLoX-CL/Pavlim.git"
+end
+
+desc "Update pavlim and plugins"
+task :update_all => [:update_pavlim, :init] do
+end

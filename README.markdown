@@ -23,3 +23,27 @@ or...
     rake update_all
 
 ...if you want to update pavlim and every other plugin.
+
+Notes
+=====
+
+### Default font ###
+
+The default font included in this bundle is Inconsolata-g, a modified
+version of the Inconsolata font, so if you're having issues like the
+default font is ugly, this could be the problem. This font can be
+downloaded for free from [Leonardo Maffi](http://www.fantascienza.net/leonardo/ar/inconsolatag/inconsolata-g_font.zip).
+
+Issues?
+=======
+
+If you have any problem, think that something can work better or want to
+give some feedback, please don't hesitate in contacting me through my
+e-mail pablo (at) glatelier (dot) org, via github message or filing an
+issue in the github tracker.
+
+Copyright
+=========
+
+Copyright (c) 2011 Pablo Olmos de Aguilera Corradini. See LICENSE for
+details.

@@ -48,6 +48,7 @@ set showcmd                           " Show command in bottom right portion of 
 set showmatch                         " Show matching brackets
 set matchpairs+=<:>                   " Show matching <> (html mainly) as well
 set splitbelow                        " Split windows below the current window
+set splitright                        " Makes more sense to open windows on the right than on the left
 set colorcolumn=+3                    " Displays a vertical column added/substraced from textwidth (>= Vim 7.3)
 " TODO session settings
 " set sessionoptions=resize,winpos,winsize,buffers,tabpages,folds,curdir,help
@@ -269,11 +270,7 @@ cmap <C-P> <C-R>=expand("%:p:h") . "/" <CR>
 nmap <Leader>hm :cd ~/ <CR>
 
 " Opens a vertical split and switches over (\v)
-"nnoremap <Leader>v <C-w>v<C-w>l
-
-" TODO: Shortcut to opening a virtual split to right of current pane
-" Makes more sense than opening to the left
-"nnoremap <Leader>bv :bel vsp
+nnoremap <Leader>v <C-w>v<C-w>l
 
 " Delete all buffers (via Derek Wyatt)
 nmap <silent> ,da :exec "1," . bufnr('$') . "bd"<CR>

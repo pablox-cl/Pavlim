@@ -557,9 +557,15 @@ let g:tex_flavor='latex'
 " Turn off jslint errors by defautocmdlt
 let g:JSLintHighlightErrorLine = 0
 
-"Change zen coding plugin expansion key to shift + e
-" TODO: Are we going to have zen coding or sparkup?
-"let g:user_zen_expandabbr_key = '<C-e>'
+" Zencoding-wim - change expansion leader key to Ctrl + e
+" If you just use the expand feature uncomment the following line
+" let g:user_zen_expandabbr_key = '<C-e>'
+let g:user_zen_leader_key = '<C-e>'
+let g:user_zen_settings = {
+\ 'html' : {
+\ 'indentation' : '  '
+\ },
+\}
 
 " ZoomWin configuration
 map <Leader><Leader> :ZoomWin<CR>

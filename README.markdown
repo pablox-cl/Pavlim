@@ -24,6 +24,21 @@ or...
 
 ...if you want to update pavlim and every other plugin.
 
+Features
+========
+
+## Base customizations ##
+
+## [Zencoding-vim](https://github.com/mattn/zencoding-vim) ##
+
+Zen coding is a plugin editor that helps you write faster html (or any
+other structured language) code, through a series of abbreviations that
+can be expanded to functional HTML code.
+
+**Customizations:**
+* Leader key: <C-e>
+* Expand key: <C-e>,
+
 Notes
 =====
 

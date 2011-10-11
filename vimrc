@@ -587,11 +587,11 @@ let g:CommandTMaxHeight=20
 ""
 
 "Here's 100 to choose from: http://www.vim.org/scripts/script.php?script_id=625
-colorscheme railscasts_alt
+"colorscheme railscasts_alt
 "colorscheme desert
 "set background=dark
 "colorscheme molokai
-"colorscheme solarized
+colorscheme solarized
 
 ""
 "" Miscellaneous stuff

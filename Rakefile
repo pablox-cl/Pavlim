@@ -1,3 +1,7 @@
+module VIM
+  Files = %w[ vimrc gvimrc vim ]
+end
+
 directory "autoload"
 home = Dir.home
 cwd = File.expand_path("../", __FILE__)
@@ -34,10 +38,21 @@ desc "Update pavlim and plugins"
 task :update_all => [:update_pavlim, :init] do
 end
 
+desc "Backup original vim dotfiles"
+task :backup do
+  VIM::Files.each do |file|
+    file = "#{home}/.#{file}"
+    if File.exists?(file)
+      cp_r(file, "#{file}.old", verbose: true)
+    end
+  end
+end
+
 desc "Link (g)vimrc"
-task :link_vimrc do
+task :link_vimrc => :backup do
   %w[ vimrc gvimrc ].each do |file|
     dest = "#{home}/.#{file}"
-    ln_s("#{cwd}/#{file}", dest) unless File.exists?(dest)
+    src = "#{cwd}/#{file}"
+    ln_s(src, dest, verbose: true) unless File.exists?(dest)
   end
 end

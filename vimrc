@@ -88,13 +88,6 @@ set statusline+=%c,                   " Cursor column
 set statusline+=%l/%L                 " Cursor line/total lines
 set statusline+=\ %P                  " Percent through file
 
-" TODO: A more verbose status line
-"set statusline=
-"set statusline+=%<%f%h%m%r%h%w%y
-"set statusline+=\ [%{strlen(&ft)?&ft:'none'},%{&enc},%{&ff}]
-"set statusline+=%=
-"set statusline+=c:%c%V\ l:%l,%L\ %P
-
 ""
 "" Helpers
 ""

@@ -1,6 +1,11 @@
 directory "autoload"
+home = Dir.home
+cwd = File.expand_path("../", __FILE__)
 
-task :default => [:init]
+task :default => [
+  :init
+  :link_vimrc
+]
 
 task :check_curl do
   system "hash curl 2>&- || { echo >&2 \
@@ -27,4 +32,12 @@ end
 
 desc "Update pavlim and plugins"
 task :update_all => [:update_pavlim, :init] do
+end
+
+desc "Link (g)vimrc"
+task :link_vimrc do
+  %w[ vimrc gvimrc ].each do |file|
+    dest = "#{home}/.#{file}"
+    ln_s("#{cwd}/#{file}", dest) unless File.exists?(dest)
+  end
 end

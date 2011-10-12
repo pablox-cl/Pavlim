@@ -3,7 +3,7 @@ home = Dir.home
 cwd = File.expand_path("../", __FILE__)
 
 task :default => [
-  :init
+  :init,
   :link_vimrc
 ]
 

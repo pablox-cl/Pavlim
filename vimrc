@@ -157,7 +157,7 @@ autocmd BufEnter * lcd %:p:h
 ""
 
 " Set the Leader key
-let mapLeader = ","
+let mapleader = ","
 
 " Saves time; maps the spacebar to colon
 nmap <Space> :
@@ -187,7 +187,7 @@ map <MouseMiddle> <Esc>"*p
 map <F8> <Esc>:setlocal spell spelllang=en_us<CR>
 map <F9> <Esc>:setlocal nospell<CR>
 
-" Map w!! to write file with sudo, when forgot to open with sudo.
+" Map w!! to write file with sudo, when forgot to open with sudo
 cmap w!! w !sudo tee % >/dev/null
 
 " Check changes from the last save

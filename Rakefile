@@ -8,7 +8,8 @@ cwd = File.expand_path("../", __FILE__)
 
 task :default => [
   :init,
-  :link_vimrc
+  :link_vimrc,
+  :update_docs
 ]
 
 task :check_curl do
@@ -55,4 +56,9 @@ task :link_vimrc => :backup do
     src = "#{cwd}/#{file}"
     ln_s(src, dest, verbose: true) unless File.exists?(dest)
   end
+end
+
+desc "Update documentation"
+task :update_docs => :pathogen_install do
+  system "vim -c 'call pathogen#helptags()|q'"
 end

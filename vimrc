@@ -54,7 +54,7 @@ set colorcolumn=+3                    " Displays a vertical column added/substra
 " set sessionoptions=resize,winpos,winsize,buffers,tabpages,folds,curdir,help
 set number                            " Show line numbers OR,...
 "set relativenumber                    " Relative line numbers (>= Vim 7.3)
-"set autocmdtowrite                         " Write the old file out when switching between files
+"set autowrite                         " Write the old file out when switching between files
 "set mouse=a
 "set mousehide                         " Hide mouse when typing
 "set hidden                            " Switch between buffers without saving
@@ -125,8 +125,8 @@ function s:SortCSS()
 endfunction
 
 " Remember last location in file
-if has("autocmdtocmd")
-    autocmdtocmd BufReadPost *
+if has("autocmd")
+    autocmd BufReadPost *
     \ if line("'\"") > 0 && line ("'\"") <= line("$") |
     \ exe "normal! g'\"" |
     \ endif
@@ -295,7 +295,7 @@ set autoindent
 set smarttab                          " Smart tabulation and backspace
 set smartindent                       " Uses smart indent if there's no indent file
 set tabstop=2                         " A tab is 2 (two) spaces
-set shiftwidth=2                      " An autocmdtoindent (with <<) is two spaces
+set shiftwidth=2                      " An autoindent (with <<) is two spaces
 set softtabstop=2                     " Two spaces when editing
 set expandtab                         " Use spaces, not tabs
 set list listchars=tab:▷⋅,trail:⋅,nbsp:⋅    " Show non-printing characters for tabs and trailing spaces
@@ -400,6 +400,15 @@ autocmd FileType css set omnifunc=csscomplete#CompleteCSS
 autocmd FileType javascript setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2 colorcolumn=79
 let javascript_enable_domhtmlcss=1
 
+" Vala
+autocmd BufRead *.vala set efm=%f:%l.%c-%[%^:]%#:\ %t%[%^:]%#:\ %m
+autocmd BufRead *.vapi set efm=%f:%l.%c-%[%^:]%#:\ %t%[%^:]%#:\ %m
+autocmd BufRead,BufNewFile *.vala  setfiletype vala
+autocmd BufRead,BufNewFile *.vapi  setfiletype vala
+let vala_comment_strings = 1
+let vala_space_errors = 1
+let vala_no_tab_space_error = 1
+
 " Vim
 autocmd FileType vim setlocal expandtab shiftwidth=2 tabstop=8 softtabstop=2
 
@@ -408,37 +417,13 @@ autocmd FileType vim setlocal expandtab shiftwidth=2 tabstop=8 softtabstop=2
 " and disable that stupid html rendering (like making stuff bold etc)
 " See: https://github.com/mariocesar/dotfiles
 
-fun! SelectHTML()
-  let n = 1
-  while n < 50 && n < line("$")
-" check for jinja
-    if getline(n) =~ '{%\s*\(extends\|block\|macro\|set\|if\|for\|include\|trans\)\>'
-      set ft=htmljinja
-      return
-    endif
-" check for mako
-    if getline(n) =~ '<%\(def\|inherit\)'
-      set ft=mako
-      return
-    endif
-" check for genshi
-    if getline(n) =~ 'xmlns:py\|py:\(match\|for\|if\|def\|strip\|xmlns\)'
-      set ft=genshi
-      return
-    endif
-    let n = n + 1
-  endwhile
-" go with html
-  set ft=html
-endfun
-
 autocmd FileType html,xhtml,xml,htmldjango,htmljinja,eruby,mako setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
 autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
 autocmd BufNewFile,BufRead *.rhtml setlocal ft=eruby
 autocmd BufNewFile,BufRead *.mako setlocal ft=mako
 autocmd BufNewFile,BufRead *.tmpl setlocal ft=htmljinja
 autocmd BufNewFile,BufRead *.py_tmpl setlocal ft=python
-autocmd BufNewFile,BufRead *.html,*.htm call SelectHTML()
+"autocmd BufNewFile,BufRead *.html,*.htm
 let html_no_rendering=1
 
 " TODO: CloseTag. Intelligently close HTML tags
@@ -513,20 +498,11 @@ let g:gist_open_browser_after_post = 1
 " Matchit - % to bounce from do to end etc.
 runtime! macros/matchit.vim
 
-" Vala - vala support
-"autocmdtocmd BufRead *.vala set efm=%f:%l.%c-%[%^:]%#:\ %t%[%^:]%#:\ %m
-"autocmdtocmd BufRead *.vapi set efm=%f:%l.%c-%[%^:]%#:\ %t%[%^:]%#:\ %m
-"autocmd BufRead,BufNewFile *.vala  setfiletype vala
-"autocmd BufRead,BufNewFile *.vapi  setfiletype vala
-"let vala_comment_strings = 1
-"let vala_space_errors = 1
-"let vala_no_tab_space_error = 1
-
 " Ack - uncomment suitable line if configuration is necessary
 "let g:ackprg="ack -H --nocolor --nogroup"         " If ack --version < 1.92
 "let g:ackprg="ack-grep -H --nocolor --nogroup"    " For Debian/Ubuntu
 
-" Conque - lautocmdnch terminal
+" Conque - launch terminal
 nnoremap <Leader>t :ConqueTermSplit bash<CR>
 
 " Snipmate configuration
@@ -544,7 +520,7 @@ set statusline+=%{exists('g:loaded_rvm')?rvm#statusline():''}
 set grepprg=grep\ -nH\ $*
 let g:tex_flavor='latex'
 
-" Turn off jslint errors by defautocmdlt
+" Turn off jslint errors by default
 let g:JSLintHighlightErrorLine = 0
 
 " Zencoding-wim - change expansion leader key to Ctrl + e
@@ -560,7 +536,7 @@ let g:user_zen_settings = {
 " ZoomWin configuration
 map <Leader><Leader> :ZoomWin<CR>
 
-" Without setting this, ZoomWin restores windows in a way that cautocmdses
+" Without setting this, ZoomWin restores windows in a way that causes
 " equalalways behavior to be triggered the next time CommandT is used.
 " This is likely a bludgeon to solve some other issue, but it works
 set noequalalways

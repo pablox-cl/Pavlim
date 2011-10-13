@@ -6,12 +6,6 @@ directory "autoload"
 home = Dir.home
 cwd = File.expand_path("../", __FILE__)
 
-task :default => [
-  :init,
-  :link_vimrc,
-  :update_docs
-]
-
 task :check_curl do
   system "hash curl 2>&- || { echo >&2 \
     'curl is needed to run this, please install it first.'; }"
@@ -27,20 +21,19 @@ end
 
 desc "Init pavlim and update vim plugins"
 task :init => :pathogen_install do
+  puts "Updating all plugins"
   system "git submodule update --init"
 end
 
-desc "Update pavlim"
+desc "Update Pavlim"
 task :update_pavlim do
+  puts "Pulling last version"
   system "git pull git://github.com/PaBLoX-CL/Pavlim.git"
-end
-
-desc "Update pavlim and plugins"
-task :update_all => [:update_pavlim, :init] do
 end
 
 desc "Backup original vim dotfiles"
 task :backup do
+  puts "Backing up your old files..."
   VIM::Files.each do |file|
     file = "#{home}/.#{file}"
     if File.exists?(file)
@@ -51,6 +44,7 @@ end
 
 desc "Link (g)vimrc"
 task :link_vimrc => :backup do
+  puts "Linking files"
   %w[ vimrc gvimrc ].each do |file|
     dest = "#{home}/.#{file}"
     src = "#{cwd}/#{file}"
@@ -59,6 +53,25 @@ task :link_vimrc => :backup do
 end
 
 desc "Update documentation"
-task :update_docs => :pathogen_install do
+task :update_docs do
+  puts "Updating Vim documentation..."
   system "vim -c 'call pathogen#helptags()|q'"
 end
+
+task :default => [
+  :link_vimrc,
+  :update_docs
+]
+
+desc "Install the bundle: get pathogen, get the plugins, backup your old files and link the new ones"
+task :install => [
+  :init,
+  :default
+]
+
+desc "Updates Pathogen, Pavlim and the plugins"
+task :update => [
+  :update_pavlim,
+  :init,
+  :default
+]

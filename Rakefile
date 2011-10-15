@@ -7,6 +7,13 @@ home = Dir.home
 cwd = File.expand_path("../", __FILE__)
 vim_dir = "#{home}/.vim"
 
+def fancy_output(message)
+  n = message.length
+  puts "*" * (n + 5)
+  puts "*#{message.center(n + 3)}*"
+  puts "*" * (n + 5)
+end
+
 task :check_curl do
   system "hash curl 2>&- || { echo >&2 \
     'curl is needed to run this, please install it first.'; }"
@@ -14,27 +21,26 @@ end
 
 desc "Install or update pathogen"
 task :pathogen_install => [:check_curl, "autoload"] do
-  puts "Downloading pathogen from 'https://github.com/tpope/vim-pathogen/' ..."
+  fancy_output "Downloading pathogen from 'https://github.com/tpope/vim-pathogen/' ..."
   system "curl -so autoload/pathogen.vim \
     https://raw.github.com/tpope/vim-pathogen/HEAD/autoload/pathogen.vim"
-  puts "Ready!"
 end
 
 desc "Init pavlim and update vim plugins"
 task :init => :pathogen_install do
-  puts "Updating all plugins"
+  fancy_output "Updating all plugins"
   system "git submodule update --init"
 end
 
 desc "Update Pavlim"
 task :update_pavlim do
-  puts "Pulling last version"
+  fancy_output "Pulling last version"
   system "git pull git://github.com/PaBLoX-CL/Pavlim.git"
 end
 
 desc "Backup original vim dotfiles"
 task :backup do
-  puts "Backing up your old files..."
+  fancy_output "Backing up your old files..."
   VIM::Files.each do |file|
     file = "#{home}/.#{file}"
     next if file == vim_dir
@@ -55,7 +61,7 @@ end
 
 desc "Link (g)vimrc"
 task :link_vim_files do
-  puts "Linking files"
+  fancy_output "Linking files"
   ln_sf(cwd, vim_dir, verbose: true) unless vim_dir == cwd
   %w[ vimrc gvimrc ].each do |file|
     dest = "#{home}/.#{file}"
@@ -66,7 +72,7 @@ end
 
 desc "Update documentation"
 task :update_docs do
-  puts "Updating Vim documentation..."
+  fancy_output "Updating Vim documentation..."
   system "vim -c 'call pathogen#helptags()|q'"
 end
 
@@ -82,8 +88,8 @@ task :install => [
   :default
 ] do
   puts """Your old files have been appended with .old.
-  Enjoy Pavlim and please don't forget to feedback, specially if something
-  isn't working ( :"""
+    Enjoy Pavlim and please don't forget to feedback, specially if something
+    isn't working as it should ( :"""
 end
 
 desc "Updates Pathogen, Pavlim and the plugins"

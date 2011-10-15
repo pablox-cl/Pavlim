@@ -1,5 +1,5 @@
 module VIM
-  Files = %w[ vimrc gvimrc vim ]
+  Files = %w[ vim vimrc gvimrc ]
 end
 
 directory "autoload"
@@ -36,19 +36,28 @@ task :backup do
   puts "Backing up your old files..."
   VIM::Files.each do |file|
     file = "#{home}/.#{file}"
-    if File.exists?(file)
-      cp_r(file, "#{file}.old", verbose: true)
+    if File.exists?(file) and not File.symlink?(file)
+      mv file, "#{file}.old", verbose: true
+    elsif File.symlink?(file)
+      old_dest = File.readlink(file)
+      if File.readlink(file).include? "#{home}/.vim/"
+        ln_sf "#{home}/.vim.old/#{File.basename(old_dest)}", "#{file}.old", verbose: true
+        rm file, verbose: true
+      elsif
+        copy_entry file, "#{home}/#{file}.old"
+        rm file, verbose: true
+      end
     end
   end
 end
 
 desc "Link (g)vimrc"
-task :link_vimrc => :backup do
+task :link_vim_files => :backup do
   puts "Linking files"
   %w[ vimrc gvimrc ].each do |file|
     dest = "#{home}/.#{file}"
     src = "#{cwd}/#{file}"
-    ln_s(src, dest, verbose: true) unless File.exists?(dest)
+    ln_sf(src, dest, verbose: true) unless File.exists?(dest)
   end
 end
 
@@ -59,7 +68,7 @@ task :update_docs do
 end
 
 task :default => [
-  :link_vimrc,
+  :link_vim_files,
   :update_docs
 ]
 
@@ -67,7 +76,11 @@ desc "Install the bundle: get pathogen, get the plugins, backup your old files a
 task :install => [
   :init,
   :default
-]
+] do
+  puts """Your old files have been appended with .old.
+  Enjoy Pavlim and please don't forget to feedback, specially if something
+  isn't working ( :"""
+end
 
 desc "Updates Pathogen, Pavlim and the plugins"
 task :update => [

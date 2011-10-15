@@ -5,6 +5,7 @@ end
 directory "autoload"
 home = Dir.home
 cwd = File.expand_path("../", __FILE__)
+vim_dir = "#{home}/.vim"
 
 task :check_curl do
   system "hash curl 2>&- || { echo >&2 \
@@ -40,11 +41,11 @@ task :backup do
       mv file, "#{file}.old", verbose: true
     elsif File.symlink?(file)
       old_dest = File.readlink(file)
-      if File.readlink(file).include? "#{home}/.vim/"
-        ln_sf "#{home}/.vim.old/#{File.basename(old_dest)}", "#{file}.old", verbose: true
+      if File.readlink(file).include? vim_dir
+        ln_sf "#{vim_dir}.old/#{File.basename(old_dest)}", "#{file}.old", verbose: true
         rm file, verbose: true
       elsif
-        copy_entry file, "#{home}/#{file}.old"
+        copy_entry file, "#{file}.old"
         rm file, verbose: true
       end
     end
@@ -52,12 +53,13 @@ task :backup do
 end
 
 desc "Link (g)vimrc"
-task :link_vim_files => :backup do
+task :link_vim_files do
   puts "Linking files"
+  ln_sf(cwd, vim_dir, verbose: true) unless vim_dir == cwd
   %w[ vimrc gvimrc ].each do |file|
     dest = "#{home}/.#{file}"
-    src = "#{cwd}/#{file}"
-    ln_sf(src, dest, verbose: true) unless File.exists?(dest)
+    src = "#{vim_dir}/#{file}"
+    ln_sf(src, dest, verbose: true) #unless File.exists?(dest)
   end
 end
 
@@ -74,6 +76,7 @@ task :default => [
 
 desc "Install the bundle: get pathogen, get the plugins, backup your old files and link the new ones"
 task :install => [
+  :backup,
   :init,
   :default
 ] do

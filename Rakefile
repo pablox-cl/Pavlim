@@ -37,6 +37,7 @@ task :backup do
   puts "Backing up your old files..."
   VIM::Files.each do |file|
     file = "#{home}/.#{file}"
+    next if file == vim_dir
     if File.exists?(file) and not File.symlink?(file)
       mv file, "#{file}.old", verbose: true
     elsif File.symlink?(file)
@@ -59,7 +60,7 @@ task :link_vim_files do
   %w[ vimrc gvimrc ].each do |file|
     dest = "#{home}/.#{file}"
     src = "#{vim_dir}/#{file}"
-    ln_sf(src, dest, verbose: true) #unless File.exists?(dest)
+    ln_sf(src, dest, verbose: true)
   end
 end
 

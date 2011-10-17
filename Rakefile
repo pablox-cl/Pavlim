@@ -1,11 +1,15 @@
 module VIM
   Files = %w[ vim vimrc gvimrc ]
+  Dirs = %w[ autoload tmp/undo tmp/backup tmp/swap tmp/download ]
 end
 
-directory "autoload"
 home = Dir.home
 cwd = File.expand_path("../", __FILE__)
 vim_dir = "#{home}/.vim"
+
+VIM::Dirs.each do |dir|
+  mkdir_p dir
+end
 
 def fancy_output(message)
   n = message.length
@@ -20,7 +24,7 @@ task :check_curl do
 end
 
 desc "Install or update pathogen"
-task :pathogen_install => [:check_curl, "autoload"] do
+task :pathogen_install => :check_curl do
   fancy_output "Downloading pathogen from 'https://github.com/tpope/vim-pathogen/' ..."
   system "curl -so autoload/pathogen.vim \
     https://raw.github.com/tpope/vim-pathogen/HEAD/autoload/pathogen.vim"

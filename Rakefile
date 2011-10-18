@@ -7,8 +7,10 @@ home = Dir.home
 cwd = File.expand_path("../", __FILE__)
 vim_dir = "#{home}/.vim"
 
-VIM::Dirs.each do |dir|
-  mkdir_p dir
+task :req_dirs do
+  VIM::Dirs.each do |dir|
+    mkdir_p dir
+  end
 end
 
 def fancy_output(message)
@@ -24,14 +26,14 @@ task :check_curl do
 end
 
 desc "Install or update pathogen"
-task :pathogen_install => :check_curl do
+task :pathogen_install => [:check_curl, :req_dirs] do
   fancy_output "Downloading pathogen from 'https://github.com/tpope/vim-pathogen/' ..."
-  system "curl -so autoload/pathogen.vim \
+  system "curl -o autoload/pathogen.vim \
     https://raw.github.com/tpope/vim-pathogen/HEAD/autoload/pathogen.vim"
 end
 
 desc "Init pavlim and update vim plugins"
-task :init => :pathogen_install do
+task :init => [:req_dirs, :pathogen_install] do
   fancy_output "Updating all plugins"
   system "git submodule update --init"
 end
@@ -63,7 +65,24 @@ task :backup do
   end
 end
 
-desc "Link (g)vimrc"
+def install_plugin(name, download_link=nil)
+
+  namespace :plugin do
+
+    desc "Install #{name} plugin"
+    task name => :req_dirs do
+      filename = %x(curl --silent --head #{download_link} | grep attachment).strip![/filename=(.+)/,1]
+      system "curl #{download_link} > tmp/download/#{filename}"
+      system "unzip -o tmp/download/#{filename} -d bundle/#{name}"
+    end
+
+  end
+
+end
+
+install_plugin "csapprox", "http://www.vim.org/scripts/download_script.php?src_id=10336"
+
+desc "Link (g)vimrc to ~/.(g)vimrc"
 task :link_vim_files do
   fancy_output "Linking files"
   ln_sf(cwd, vim_dir, verbose: true) unless vim_dir == cwd

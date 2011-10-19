@@ -70,14 +70,6 @@
 	path = bundle/searchfold
 	url = git://github.com/vim-scripts/searchfold.vim.git
 	ignore = dirty
-[submodule "bundle/snipmate"]
-	path = bundle/snipmate
-	url = git://github.com/msanders/snipmate.vim.git
-	ignore = dirty
-[submodule "snippets"]
-	path = snippets
-	url = git://github.com/scrooloose/snipmate-snippets.git
-	ignore = dirty
 [submodule "bundle/supertab"]
 	path = bundle/supertab
 	url = git://github.com/ervandew/supertab.git
@@ -129,4 +121,20 @@
 [submodule "bundle/vim-vividchalk"]
 	path = bundle/vim-vividchalk
 	url = git://github.com/tpope/vim-vividchalk.git
+	ignore = dirty
+[submodule "bundle/vim-snipmate"]
+	path = bundle/vim-snipmate
+	url = git://github.com/garbas/vim-snipmate.git
+	ignore = dirty
+[submodule "bundle/vim-addon-mw-utils"]
+	path = bundle/vim-addon-mw-utils
+	url = git://github.com/MarcWeber/vim-addon-mw-utils.git
+	ignore = dirty
+[submodule "bundle/snipmate-snippets"]
+	path = bundle/snipmate-snippets
+	url = git://github.com/honza/snipmate-snippets.git
+	ignore = dirty
+[submodule "bundle/tlib_vim"]
+	path = bundle/tlib_vim
+	url = git://github.com/tomtom/tlib_vim.git
 	ignore = dirty

@@ -505,11 +505,6 @@ runtime! macros/matchit.vim
 " Conque - launch terminal
 nnoremap <Leader>t :ConqueTermSplit bash<CR>
 
-" Snipmate configuration
-source ~/.vim/snippets/support_functions.vim
-autocmd vimenter * call ExtractSnips("~/.vim/snippets/html", "eruby")
-autocmd vimenter * call ExtractSnips("~/.vim/snippets/html", "php")
-
 " Rails - turn off rails related things in statusbar
 "let g:rails_statusline=0
 

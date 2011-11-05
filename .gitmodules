@@ -147,3 +147,6 @@
 [submodule "bundle/vim-unimpaired"]
 	path = bundle/vim-unimpaired
 	url = git://github.com/tpope/vim-unimpaired.git
+[submodule "bundle/vim-blackboard"]
+	path = bundle/vim-blackboard
+	url = https://github.com/nelstrom/vim-blackboard.git

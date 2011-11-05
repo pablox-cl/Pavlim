@@ -4,6 +4,11 @@ set nocompatible                      " Forget about vi compatibility... who car
 "" Customizations
 ""
 
+" Include user's local vim config
+if filereadable(expand("~/.vimrc.before"))
+  source ~/.vimrc.before
+endif
+
 " TODO
 "let s:current_file = expand("<sfile>:p")
 
@@ -14,10 +19,6 @@ set nocompatible                      " Forget about vi compatibility... who car
 "  call pathogen#runtime_prepend_subdirectories(file)
 "endfunction
 
-" Include user's local vim config
-if filereadable(expand("~/.vimrc.before"))
-  source ~/.vimrc.before
-endif
 
 ""
 "" Pathogen setup
@@ -50,8 +51,6 @@ set matchpairs+=<:>                   " Show matching <> (html mainly) as well
 set splitbelow                        " Split windows below the current window
 set splitright                        " Makes more sense to open windows on the right than on the left
 set colorcolumn=+3                    " Displays a vertical column added/substraced from textwidth (>= Vim 7.3)
-" TODO session settings
-" set sessionoptions=resize,winpos,winsize,buffers,tabpages,folds,curdir,help
 set number                            " Show line numbers OR,...
 "set relativenumber                    " Relative line numbers (>= Vim 7.3)
 "set autowrite                         " Write the old file out when switching between files
@@ -62,14 +61,17 @@ set number                            " Show line numbers OR,...
 filetype plugin indent on             " Enable filetype use
 syntax enable                         " Turn on syntax highlighting allowing local overrides
 
+" Session settings
+set sessionoptions=buffers,curdir,folds,resize,tabpages,winpos,winsize
+
 " Source the vimrc file after saving it.
 " This way, you don't have to reload Vim to see the changes.
-if has("autocmd")
-    augroup myvimrchooks
-        autocmd!
-        autocmd BufWritePost .vimrc source ~/.vimrc
-    augroup END
-endif
+function! UpdateVimRC()
+  for server in split(serverlist())
+    call remote_send(server, '<Esc>:source $MYVIMRC<CR>')
+  endfor
+endfunction
+autocmd! BufWritePost *vimrc call UpdateVimRC()
 
 " No blinking cursor. See http://www.linuxpowertop.org/known.php
 let &guicursor = &guicursor . ",a:blinkon0"
@@ -92,6 +94,7 @@ set statusline+=\ %P                  " Percent through file
 "" Helpers
 ""
 
+"
 " View changes after the last save
 function! s:DiffWithSaved()
   let filetype=&ft
@@ -100,29 +103,21 @@ function! s:DiffWithSaved()
   diffthis
   exe "setlocal bt=nofile bh=wipe nobl noswf ro ft=" . filetype
 endfunction
-com! DiffSaved call s:DiffWithSaved()
+command! DiffSaved call s:DiffWithSaved()
 
 " Some file types should wrap their text
-function s:setupWrapping()
+function! s:SetupWrapping()
   set wrap
   set linebreak
   set textwidth=72
   set nolist
 endfunction
 
-" TODO: Delete this?
-"function s:setupMarkup()
-"  call s:setupWrapping()
-"  map <buffer> <Leader>p :Hammer<CR>
-"endfunction
-
 " Alphabetically sort CSS properties in file with :SortCSS
-":command! SortCSS :g#\({\n\)\@<=#.,/}/sort
-
-" TODO: Check if this works.
-function s:SortCSS()
+function! s:SortCSS()
   :g#\({\n\)\@<=#.,/}/sort
 endfunction
+command! SortCSS call s:SortCSS()
 
 " Remember last location in file
 if has("autocmd")
@@ -133,10 +128,11 @@ if has("autocmd")
 endif
 
 " Removes trailing spaces
-function RemoveTrailingSpaces()
+function! s:RemoveTrailingSpaces()
   %s/\s*$//
   ''
 endfunction
+command! RemoveTrailingSpaces call s:RemoveTrailingSpaces()
 
 " Highlight space errors
 let c_space_errors = 1
@@ -157,9 +153,6 @@ nmap <Space> :
 
 " Map escape key to jj -- much faster
 imap jj <Esc>
-
-"TODO: Map code completion to , + tab
-"imap <Leader><tab> <C-x><C-o>
 
 " Common mistake
 command! W :w
@@ -189,13 +182,6 @@ nnoremap <Leader>? :DiffSaved<CR>
 " Hard-wrap paragraphs of text
 nnoremap <Leader>q gqip
 
-" No more stretching for navigating files
-"noremap h ;
-"noremap j h
-"noremap k gj
-"noremap l gk
-"noremap ; l
-
 " Easier window navigation
 nmap <C-h> <C-w>h
 nmap <C-j> <C-w>j
@@ -205,19 +191,6 @@ nmap <C-l> <C-w>l
 " Easier tab navigation
 noremap <silent> <C-Tab> :tabnext<cr>
 noremap <silent> <C-S-Tab> :tabprevious<cr>
-
-" Mapping to keep navigation based on display lines instead
-" numbered lines
-vmap <D-j> gj
-vmap <D-k> gk
-vmap <D-4> g$
-vmap <D-6> g^
-vmap <D-0> g^
-nmap <D-j> gj
-nmap <D-k> gk
-nmap <D-4> g$
-nmap <D-6> g^
-nmap <D-0> g^
 
 " Map the arrow keys to be based on display lines, not physical lines
 map <Down> gj
@@ -239,20 +212,12 @@ vmap <C-Up> xkP`[V`]
 vmap <C-Down> xp`[V`]
 
 " Opens a tab edit command with the path of the currently edited file filled in
-" Normal mode: <Leader>t
+" Normal mode: <Leader>te
 map <Leader>te :tabe <C-R>=expand("%:p:h") . "/" <CR>
 
 " Opens the directory browser for the directory of the current path.
 " Normal mode: <Leader>e
 map <Leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
-
-" Open the directory browser for the directory of the current path in a
-" new tab.
-" <Leader>te
-map <Leader>te :tabe <C-R>=expand("%:p:h") . "/" <CR>
-
-" Insert the current directory into a command-line path
-"cmap <C-P> <C-R>=expand("%:p:h") . "/"
 
 " Inserts the path of the currently edited file into a command
 " Command mode: Ctrl+P
@@ -268,14 +233,17 @@ nnoremap <Leader>v <C-w>v<C-w>l
 " Delete all buffers (via Derek Wyatt)
 nmap <silent> ,da :exec "1," . bufnr('$') . "bd"<CR>
 
-" Load the current buffer in Firefox - Mac specific.
-abbrev ff :! open -a firefox.app %:p<cr>
-
-" Map a change directory to the desktop - Mac specific
-nnoremap <Leader>d :cd ~/Desktop<cr>:e.<cr>
-
 " Saves file
 nmap <C-s> :w<CR>
+
+" Shifting lines (aka indentation)
+nmap <M-S-Left> <<
+nmap <M-S-Right> >>
+vmap <M-S-Left> <gv
+vmap <M-S-Right> >gv
+
+" Call omnicompletion easily
+imap <C-Space> <C-x><C-o>
 
 ""
 "" Backups
@@ -292,20 +260,14 @@ autocmd BufNewFile,BufReadPre /media/*,/mnt/* set directory=~/tmp,/var/tmp,/tmp
 ""
 set nowrap                            " Don't wrap lines
 set autoindent
+set expandtab                         " Use spaces, not tabs
 set smarttab                          " Smart tabulation and backspace
 set smartindent                       " Uses smart indent if there's no indent file
 set tabstop=2                         " A tab is 2 (two) spaces
 set shiftwidth=2                      " An autoindent (with <<) is two spaces
 set softtabstop=2                     " Two spaces when editing
-set expandtab                         " Use spaces, not tabs
-set list listchars=tab:▷⋅,trail:⋅,nbsp:⋅    " Show non-printing characters for tabs and trailing spaces
+set list listchars=trail:⋅,nbsp:⋅,tab:\ \    " Show non-printing characters for tabs and trailing spaces
 set backspace=indent,eol,start        " Allow backspacing over everything
-
-" Mapping for textmate-like indentation
-nmap <D-[> <<
-nmap <D-]> >>
-vmap <D-[> <gv
-vmap <D-]> >gv
 
 " Searching
 set hlsearch
@@ -327,24 +289,11 @@ set nofoldenable                      " But don't start with it
 " Shortcut to fold tags with Leader (usually \) + ft
 nnoremap <Leader>ft Vatzf
 
-" TODO Omnifunction/wildmode?
-" set wildmenu
-" set wildmode=longest:full,list:full
-
-" set wildmode=list:longest,list:full as janus
-" set wildmode=longest:full  as gavim2
-
-" set wildmode=longest,list
-" set wildignore+=*.o,*.obj,.git,*.rbc,*.class,.svn,vendor/gems/*
-" setlocal ofu=syntaxcomplete#Complete  " enable syntax based omni completion
-
-"http://vim.wikia.com/wiki/Make_Vim_completion_popup_menu_work_just_like_in_an_IDE
-"set completeopt=longest,menuone
-"inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-"inoremap <expr> <C-n> pumvisible() ? '<C-n>' :
-"\ '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
-"inoremap <expr> <M-,> pumvisible() ? '<C-n>' :
-"\ '<C-x><C-o><C-n><C-p><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
+" Completion
+set wildmenu
+set wildmode=longest,list
+set wildignore+=*.o,*.obj,.git,*.rbc,*.class,.svn,vendor/gems/*
+setlocal omnifunc=syntaxcomplete#Complete  " enable syntax based omni completion
 
 ""
 "" Filetype
@@ -365,27 +314,20 @@ if has("cscope") && filereadable("/usr/bin/cscope")
    set csverb
 endif
 
-" TODO: Delete?
-" plain text
-"autocmd BufRead,BufNewFile *.txt call s:setupWrapping()
-"
-" md, markdown, and mk are markdown and define buffer-local preview
-"autocmd BufRead,BufNewFile *.{md,markdown,mdown,mkd,mkdn} call s:setupMarkup()
-
-" Markdown and txt files should wrap
-autocmd BufRead,BufNewFile *.{md,markdown,mdown,mkd,mkdn,txt} call s:setupWrapping()
+" Markdown, textile and txt files should wrap
+autocmd BufRead,BufNewFile *.{md,markdown,mdown,mkd,mkdn,txt,textile} call s:SetupWrapping()
 
 " Make Python (and sh) follow PEP8 ( http://www.python.org/dev/peps/pep-0008/ )
-autocmd FileType python,sh set softtabstop=4 tabstop=4 shiftwidth=4 textwidth=79
+autocmd FileType python,sh setlocal softtabstop=4 tabstop=4 shiftwidth=4 textwidth=79 colorcolumn=79
 
 " make uses real tabs (not spaces)
-autocmd FileType make set noexpandtab
+autocmd FileType make setlocal noexpandtab
 
 " Thorfile, Rakefile, Vagrantfile and Gemfile are Ruby
-autocmd BufRead,BufNewFile {Gemfile,Rakefile,Vagrantfile,Thorfile,config.ru} set filetype=ruby
+autocmd BufRead,BufNewFile {Gemfile,Rakefile,Vagrantfile,Thorfile,config.ru} setlocal filetype=ruby
 
 " Add json syntax highlighting
-autocmd BufNewFile,BufRead *.json set ft=javascript
+autocmd BufNewFile,BufRead *.json setlocal ft=javascript
 
 " rst
 autocmd BufNewFile,BufRead *.rst setlocal ft=rst
@@ -394,7 +336,6 @@ autocmd FileType rst setlocal expandtab shiftwidth=4 tabstop=4 softtabstop=4 col
 
 " CSS
 autocmd FileType css setlocal expandtab shiftwidth=4 tabstop=4 softtabstop=4
-autocmd FileType css set omnifunc=csscomplete#CompleteCSS
 
 " Javascript
 autocmd FileType javascript setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2 colorcolumn=79
@@ -414,7 +355,6 @@ autocmd FileType vim setlocal expandtab shiftwidth=2 tabstop=8 softtabstop=2
 
 " Template language support (SGML / XML too)
 " ------------------------------------------
-" and disable that stupid html rendering (like making stuff bold etc)
 " See: https://github.com/mariocesar/dotfiles
 
 autocmd FileType html,xhtml,xml,htmldjango,htmljinja,eruby,mako setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
@@ -424,11 +364,9 @@ autocmd BufNewFile,BufRead *.mako setlocal ft=mako
 autocmd BufNewFile,BufRead *.tmpl setlocal ft=htmljinja
 autocmd BufNewFile,BufRead *.py_tmpl setlocal ft=python
 "autocmd BufNewFile,BufRead *.html,*.htm
-let html_no_rendering=1
 
-" TODO: CloseTag. Intelligently close HTML tags
-autocmd FileType html,htmldjango,jinjahtml,eruby,mako let b:closetag_html_style=1
-autocmd FileType html,xhtml,xml,htmldjango,jinjahtml,eruby,mako source ~/.vim/bundle/closetag/plugin/closetag.vim
+" Disable that stupid html rendering (like making stuff bold, underlining, etc)
+let html_no_rendering=1
 
 " Set up an HTML5 template for all new .html files
 "autocmd BufNewFile * silent! 0r $VIMHOME/templates/%:e.tpl
@@ -440,16 +378,11 @@ autocmd FileType html,xhtml,xml,htmldjango,jinjahtml,eruby,mako source ~/.vim/bu
 " NerdTREE
 nnoremap <Leader>n :NERDTreeToggle<CR>
 let NERDTreeIgnore=['\.pyc$', '\.rbc$', '\~$']
-"let NERDTreeShowHidden=1
 
 " NerdTREE - use colors, cursorline and return/enter key
 let NERDChristmasTree = 1
 let NERDTreeHighlightCursorline = 1
 let NERDTreeMapActivateNode='<CR>'
-
-" NERDTree - Autopen and focus cursor in new document
-"autocmd VimEnter * NERDTree
-"autocmd VimEnter * wincmd p
 
 " BufExplorer - easier invoke keys
 nnoremap <Leader>bb :BufExplorer<cr>
@@ -539,6 +472,12 @@ set noequalalways
 " Command-T configuration
 let g:CommandTMaxHeight=20
 
+" SuperTab
+let g:SuperTabDefaultCompletionType = "context"
+let g:SuperTabCompletionContexts = ['s:ContextText', 's:ContextDiscover']
+let g:SuperTabContextTextOmniPrecedence = ['&omnifunc', '&completefunc']
+let g:SuperTabContextDiscoverDiscovery = ["&completefunc:<c-x><c-u>", "&omnifunc:<c-x><c-o>"]
+
 "Faster shortcut for commenting. Requires T-Comment plugin
 " TODO this or nerdcommenter?
 "map <Leader>c <c-_><c-_>
@@ -570,6 +509,11 @@ iab Teh The
 "set dictionary+=.vim/dict.txt
 
 let macvim_hig_shift_movement = 1     " mvim shift-arrow-keys (required in vimrc)
+
+" Load mac specific stuff
+if has("mac")
+  source ~/.vimrc.mvim
+endif
 
 ""
 "" Customizations

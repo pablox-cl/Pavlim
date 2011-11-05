@@ -202,14 +202,15 @@ nmap <Leader>ev :tabedit $MYVIMRC<CR>
 " Automatically change current directory to that of the file in the buffer
 autocmd BufEnter * cd %:p:h
 
-" Bubble single lines (kicks butt)
-" http://vimcasts.org/episodes/bubbling-text/
-nmap <C-Up> ddkP
-nmap <C-Down> ddp
+" Bubble single lines (with unimpaired plugin)
+" If you want an alternative way with out a plugin
+" check: http://vimcasts.org/episodes/bubbling-text/
+nmap <C-Up> [e
+nmap <C-Down> ]e
 
-" Bubble multiple lines
-vmap <C-Up> xkP`[V`]
-vmap <C-Down> xp`[V`]
+" Bubble multiple lines (with unimpaired plugin)
+vmap <C-Up> [egv
+vmap <C-Down> ]egv
 
 " Opens a tab edit command with the path of the currently edited file filled in
 " Normal mode: <Leader>te
@@ -403,14 +404,6 @@ endfunction
 " Scratch - keys to toggle Scratch buffer
 map <Leader>s :call ToggleScratch()<CR>
 
-" Unimpaired configuration
-" Bubble single lines
-"nmap <C-Up> [e
-"nmap <C-Down> ]e
-
-" Bubble multiple lines
-"vmap <C-Up> [egv
-"vmap <C-Down> ]egv
 
 " Syntastic - enable syntax checking
 let g:syntastic_enable_signs=1

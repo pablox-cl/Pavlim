@@ -404,7 +404,6 @@ endfunction
 " Scratch - keys to toggle Scratch buffer
 map <Leader>s :call ToggleScratch()<CR>
 
-
 " Syntastic - enable syntax checking
 let g:syntastic_enable_signs=1
 let g:syntastic_quiet_warnings=1

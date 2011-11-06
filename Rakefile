@@ -73,14 +73,20 @@ def install_plugin(name, download_link=nil)
     task name => :req_dirs do
       filename = %x(curl --silent --head #{download_link} | grep attachment).strip![/filename=(.+)/,1]
       system "curl #{download_link} > tmp/download/#{filename}"
-      system "unzip -o tmp/download/#{filename} -d bundle/#{name}"
+      if filename =~ /\.zip$/
+        system "unzip -o tmp/download/#{filename} -d bundle/#{name}"
+      elsif filename =~ /\.vim$/
+        mkdir_p "#{Dir.getwd}/bundle/#{name}/plugin"
+        mv "#{Dir.getwd}/tmp/download/#{filename}", "#{Dir.getwd}/bundle/#{name}/plugin/", verbose: true
+      end
     end
 
   end
 
 end
 
-install_plugin "csapprox", "http://www.vim.org/scripts/download_script.php?src_id=10336"
+install_plugin "csapprox",    "http://www.vim.org/scripts/download_script.php?src_id=10336"
+install_plugin "scratch",     "http://www.vim.org/scripts/download_script.php?src_id=2050"
 
 desc "Link (g)vimrc to ~/.(g)vimrc"
 task :link_vim_files do

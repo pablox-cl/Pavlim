@@ -48,7 +48,6 @@ set laststatus=2                      " Always show status bar
 set showcmd                           " Show command in bottom right portion of the screen
 set showmatch                         " Show matching brackets
 set matchpairs+=<:>                   " Show matching <> (html mainly) as well
-set splitbelow                        " Split windows below the current window
 set splitright                        " Makes more sense to open windows on the right than on the left
 set colorcolumn=+3                    " Displays a vertical column added/substraced from textwidth (>= Vim 7.3)
 set number                            " Show line numbers OR,...
@@ -159,6 +158,14 @@ let python_space_error_highlight = 1
 " Switch to working directory of the open file
 autocmd BufEnter * lcd %:p:h
 
+"
+" Tags
+"
+set tags=./tags;/home                             " Tags can be in ./tags, ../tags, ..., /home/tags.
+set showfulltag                                   " Show more information while completing tags.
+set cscopetag                                     " When using :tag, <C-]>, or'vim -t', try cscope:
+set cscopetagorder=0                              " try ":cscope find g foo" and then ":tselect foo"
+
 ""
 "" Mappings
 ""
@@ -267,9 +274,10 @@ imap <C-Space> <C-x><C-o>
 ""
 "" Backups
 ""
-set undodir=~/.vim/tmp/undo//         " undo files
-set backupdir=~/.vim/tmp/backup//     " backups
-set directory=~/.vim/tmp/swap//       " swap files
+set updatetime=2000                   " Write swap files after 2 seconds of inactivity.
+set undodir=~/.vim/tmp/undo//         " Undo files
+set backupdir=~/.vim/tmp/backup//     " Backups
+set directory=~/.vim/tmp/swap//       " Swap files
 
 " Don't write swapfile on most commonly used directories for NFS mounts or USB sticks
 autocmd BufNewFile,BufReadPre /media/*,/mnt/* set directory=~/tmp,/var/tmp,/tmp
@@ -289,10 +297,10 @@ set list listchars=trail:⋅,nbsp:⋅,tab:\ \    " Show non-printing characters 
 set backspace=indent,eol,start        " Allow backspacing over everything
 
 " Searching
-set hlsearch
-set incsearch
-set ignorecase
-set smartcase
+set hlsearch                          " Highlight search while typing a /regex
+set incsearch                         " Incrementally search while typing a /regex
+set ignorecase                        " Default to using case insesitive searches...
+set smartcase                         " ...unless uppercase are used
 
 " Remove highlighting search results
 nnoremap <Leader><Space> :nohlsearch <CR>

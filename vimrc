@@ -84,17 +84,25 @@ let &guicursor = &guicursor . ",a:blinkon0"
 "set timeoutlen=500
 
 " Statusline setup
-set statusline=%f                     " Tail of the filename
-set statusline+=%=                    " Left/right separator
-set statusline+=%c,                   " Cursor column
-set statusline+=%l/%L                 " Cursor line/total lines
-set statusline+=\ %P                  " Percent through file
+" A great article about it:
+" http://got-ravings.blogspot.com/2008/08/vim-pr0n-making-statuslines-that-own.html
+set statusline=                                   " Clear the statusline for when vimrc is reloaded
+set statusline+=[%n]\                             " Buffer number
+set statusline+=%f\                               " File name
+set statusline+=%h%m%r%w                          " Flags (help,modified,readaonly,preview)
+set statusline+=\ [%{strlen(&ft)?&ft:'none'}]     " Filetype
+"set statusline+=%{strlen(&fenc)?&fenc:&enc},     " Encoding
+"set statusline+=%{&fileformat}]                  " File format
+set statusline+=%=                                " Right align
+set statusline+=%{StatuslineCurrentHighlight()}\  " Highlight
+set statusline+=%-14.(%l/%L,%c%V%)\               " Offset (line,total lines,column)
+set statusline+=%{fugitive#statusline()}\         " Fugitive (Git)
+set statusline+=%<%P                              " Percentage
 
 ""
 "" Helpers
 ""
 
-"
 " View changes after the last save
 function! s:DiffWithSaved()
   let filetype=&ft
@@ -133,6 +141,16 @@ function! s:RemoveTrailingSpaces()
   ''
 endfunction
 command! RemoveTrailingSpaces call s:RemoveTrailingSpaces()
+
+" Return the syntax highlight group under the cursor ''
+function! StatuslineCurrentHighlight()
+    let name = synIDattr(synID(line('.'),col('.'),1),'name')
+    if name == ''
+        return ''
+    else
+        return name
+    endif
+endfunction
 
 " Highlight space errors
 let c_space_errors = 1
@@ -407,9 +425,6 @@ map <Leader>s :call ToggleScratch()<CR>
 " Syntastic - enable syntax checking
 let g:syntastic_enable_signs=1
 let g:syntastic_quiet_warnings=1
-
-" Fugitive (Git)
-set statusline+=%{fugitive#statusline()}
 
 " Gist-vim
 if has("mac")

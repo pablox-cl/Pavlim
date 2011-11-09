@@ -154,6 +154,7 @@ endfunction
 " Highlight space errors
 let c_space_errors = 1
 let python_space_error_highlight = 1
+let ruby_space_errors = 1
 
 " Switch to working directory of the open file
 autocmd BufEnter * lcd %:p:h
@@ -493,9 +494,13 @@ let g:SuperTabCompletionContexts = ['s:ContextText', 's:ContextDiscover']
 let g:SuperTabContextTextOmniPrecedence = ['&omnifunc', '&completefunc']
 let g:SuperTabContextDiscoverDiscovery = ["&completefunc:<c-x><c-u>", "&omnifunc:<c-x><c-o>"]
 
-"Faster shortcut for commenting. Requires T-Comment plugin
-" TODO this or nerdcommenter?
-"map <Leader>c <c-_><c-_>
+" TComment mappings
+imap <C-S-c> <C-_><C-_>
+
+" TComment - NerdCommenter like mappings
+map <Leader>cc <C-_><C-_>
+map <Leader>c<Space> <C-_><C-_>
+map <Leader>cn <C-_>b
 
 ""
 "" Colors and eye-candy
@@ -519,9 +524,6 @@ iab llorem Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eius
 " Spelling corrects. Just for example. Add yours below.
 iab teh the
 iab Teh The
-
-" Create dictionary for custom expansions
-"set dictionary+=.vim/dict.txt
 
 let macvim_hig_shift_movement = 1     " mvim shift-arrow-keys (required in vimrc)
 

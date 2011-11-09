@@ -22,3 +22,6 @@ nmap <D-k> gk
 nmap <D-4> g$
 nmap <D-6> g^
 nmap <D-0> g
+
+" Textmate like mapping (uses TComment)
+imap <D-\> <C-_><C-_>

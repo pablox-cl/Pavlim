@@ -452,7 +452,7 @@ runtime! macros/matchit.vim
 "let g:ackprg="ack-grep -H --nocolor --nogroup"    " For Debian/Ubuntu
 
 " Conque - launch terminal
-nnoremap <Leader><Leader>t :ConqueTermSplit bash<CR>
+nnoremap <Leader>t :ConqueTermSplit bash<CR>
 
 " Rails - turn off rails related things in statusbar
 "let g:rails_statusline=0
@@ -478,7 +478,7 @@ let g:user_zen_settings = {
 \}
 
 " ZoomWin configuration
-map <Leader><Leader>z :ZoomWin<CR>
+map <Leader>z :ZoomWin<CR>
 
 " Without setting this, ZoomWin restores windows in a way that causes
 " equalalways behavior to be triggered the next time CommandT is used.
@@ -501,6 +501,9 @@ imap <C-S-c> <C-_><C-_>
 map <Leader>cc <C-_><C-_>
 map <Leader>c<Space> <C-_><C-_>
 map <Leader>cn <C-_>b
+
+" EasyMotion - Change default key
+let g:EasyMotion_leader_key='<Leader><Leader>'
 
 ""
 "" Colors and eye-candy

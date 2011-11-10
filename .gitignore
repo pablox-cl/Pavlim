@@ -1,3 +1,6 @@
 autoload/
 tmp/
+
+# ignoring non-git-modules plugins
 bundle/scratch
+bundle/conque-shell

@@ -452,7 +452,7 @@ runtime! macros/matchit.vim
 "let g:ackprg="ack-grep -H --nocolor --nogroup"    " For Debian/Ubuntu
 
 " Conque - launch terminal
-nnoremap <Leader>t :ConqueTermSplit bash<CR>
+nnoremap <Leader><Leader>t :ConqueTermSplit bash<CR>
 
 " Rails - turn off rails related things in statusbar
 "let g:rails_statusline=0

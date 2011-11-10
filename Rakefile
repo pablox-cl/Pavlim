@@ -69,23 +69,54 @@ def install_plugin(name, download_link=nil)
 
   namespace :plugin do
 
+    cwd = Dir.getwd
+    tmp_dir = "#{cwd}/tmp/download"
+    bundle_dir = "#{cwd}/bundle"
+
+    def ignore_local(name)
+      open("#{cwd}/.git/info/exclude", 'a') do |f|
+        f << "bundle/#{name}"
+      end
+    end
+
     desc "Install #{name} plugin"
     task name => :req_dirs do
-      filename = %x(curl --silent --head #{download_link} | grep attachment).strip![/filename=(.+)/,1]
-      system "curl #{download_link} > tmp/download/#{filename}"
-      if filename =~ /\.zip$/
-        system "unzip -o tmp/download/#{filename} -d bundle/#{name}"
-      elsif filename =~ /\.vim$/
-        mkdir_p "#{Dir.getwd}/bundle/#{name}/plugin"
-        mv "#{Dir.getwd}/tmp/download/#{filename}", "#{Dir.getwd}/bundle/#{name}/plugin/", verbose: true
+
+      if download_link.include?("vim.org")
+        filename = %x(curl --silent --head #{download_link} | grep attachment).strip![/filename=(.+)/,1]
+      else
+        filename = File.basename(download_link)
       end
+
+      system "curl #{download_link} > tmp/download/#{filename}"
+
+      case filename
+      when /\.zip$/
+        system "unzip -o tmp/download/#{filename} -d bundle/#{name}"
+      when /\.vim$/
+        mkdir_p "#{Dir.getwd}/bundle/#{name}/plugin"
+        mv "#{tmp_dir}/#{filename}", "#{bundle_dir}/#{name}/plugin/", verbose: true
+      when /tar\.gz$/
+        mkdir_p "#{tmp_dir}/#{name}"
+        mkdir_p "#{bundle_dir}/#{name}"
+        dirname = File.basename(filename, '.tar.gz')
+
+        system "tar xf #{tmp_dir}/#{filename} -C #{tmp_dir}/#{name}"
+
+        puts "Moving from tmp/download/#{name}/#{dirname} to bundle/#{name}"
+        mv Dir["#{tmp_dir}/#{name}/#{dirname}/*"], "#{bundle_dir}/#{name}", force: true
+      end
+
+      ignore_local name
+
     end
 
   end
 
 end
 
-install_plugin "scratch",     "http://www.vim.org/scripts/download_script.php?src_id=2050"
+install_plugin "scratch",       "http://www.vim.org/scripts/download_script.php?src_id=2050"
+install_plugin "conque-shell",  "http://conque.googlecode.com/files/conque_2.3.tar.gz"
 
 desc "Link (g)vimrc to ~/.(g)vimrc"
 task :link_vim_files do

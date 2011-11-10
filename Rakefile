@@ -85,7 +85,6 @@ def install_plugin(name, download_link=nil)
 
 end
 
-install_plugin "csapprox",    "http://www.vim.org/scripts/download_script.php?src_id=10336"
 install_plugin "scratch",     "http://www.vim.org/scripts/download_script.php?src_id=2050"
 
 desc "Link (g)vimrc to ~/.(g)vimrc"

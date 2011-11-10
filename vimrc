@@ -478,7 +478,7 @@ let g:user_zen_settings = {
 \}
 
 " ZoomWin configuration
-map <Leader><Leader> :ZoomWin<CR>
+map <Leader><Leader>z :ZoomWin<CR>
 
 " Without setting this, ZoomWin restores windows in a way that causes
 " equalalways behavior to be triggered the next time CommandT is used.

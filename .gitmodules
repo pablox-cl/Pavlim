@@ -166,3 +166,11 @@
 	path = bundle/csapprox
 	url = git://github.com/godlygeek/csapprox.git
 	ignore = dirty
+[submodule "bundle/vim-session"]
+	path = bundle/vim-session
+	url = git://github.com/xolox/vim-session.git
+	ignore = dirty
+[submodule "bundle/minibufexpl.vim"]
+	path = bundle/minibufexpl.vim
+	url = git://github.com/fholgado/minibufexpl.vim.git
+	ignore = dirty

@@ -229,7 +229,7 @@ nmap <Leader>ev :tabedit $MYVIMRC<CR>
 autocmd BufEnter * cd %:p:h
 
 " Bubble single lines (with unimpaired plugin)
-" If you want an alternative way with out a plugin
+" If you want an alternative way to do this without a plugin
 " check: http://vimcasts.org/episodes/bubbling-text/
 nmap <C-Up> [e
 nmap <C-Down> ]e
@@ -504,6 +504,9 @@ map <Leader>cn <C-_>b
 
 " EasyMotion - Change default key
 let g:EasyMotion_leader_key='<Leader><Leader>'
+
+" vim-session - session autosave
+let g:session_autosave = 1
 
 ""
 "" Colors and eye-candy

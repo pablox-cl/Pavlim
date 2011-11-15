@@ -38,6 +38,12 @@ set selection=exclusive
 " Possible answers (separated comma of words) are mouse, key and cmd
 "set selectmode=mouse,key
 
+" Some mappings to cut, copy and paste
+" <Ctrl> <Shift> <x>/<c>/<v>
+vmap <C-S-x> "+
+vmap <C-S-c> "+y
+nmap <C-S-v> "+gP
+
 ""
 "" Most stuff extracted from:
 "" http://github.com/carlhuda/janus/blob/master/gvimrc
@@ -50,6 +56,7 @@ set guioptions-=L                       " No left scrollbar when v.split
 set guioptions+=Aa                      " Highlighted text can be copy/pasted from/to vim
 set linespace=3                         " Prefer a slightly higher line height
 
+set background=light
 colorscheme solarized
 "colorscheme molokai
 "colorscheme desert

@@ -92,6 +92,9 @@ set statusline+=%h%m%r%w                          " Flags (help,modified,readaon
 set statusline+=\ [%{strlen(&ft)?&ft:'none'}]     " Filetype
 "set statusline+=%{strlen(&fenc)?&fenc:&enc},     " Encoding
 "set statusline+=%{&fileformat}]                  " File format
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
 set statusline+=%=                                " Right align
 set statusline+=%{StatuslineCurrentHighlight()}\  " Highlight
 set statusline+=%-14.(%l/%L,%c%V%)\               " Offset (line,total lines,column)
@@ -314,7 +317,8 @@ nnoremap <Leader><Space> :nohlsearch <CR>
 set foldmethod=syntax
 set nofoldenable                      " But don't start with it
 
-" Shortcut to fold tags with Leader (usually \) + ft
+" Fold tags
+" Normal mode: <Leader>ft
 nnoremap <Leader>ft Vatzf
 
 " Completion
@@ -452,7 +456,7 @@ runtime! macros/matchit.vim
 "let g:ackprg="ack-grep -H --nocolor --nogroup"    " For Debian/Ubuntu
 
 " Conque - launch terminal
-nnoremap <Leader>t :ConqueTermSplit bash<CR>
+nnoremap <Leader><Leader>t :ConqueTermSplit bash<CR>
 
 " Rails - turn off rails related things in statusbar
 "let g:rails_statusline=0
@@ -478,7 +482,7 @@ let g:user_zen_settings = {
 \}
 
 " ZoomWin configuration
-map <Leader>z :ZoomWin<CR>
+map <Leader><Leader>z :ZoomWin<CR>
 
 " Without setting this, ZoomWin restores windows in a way that causes
 " equalalways behavior to be triggered the next time CommandT is used.
@@ -515,9 +519,8 @@ let g:session_autosave = 1
 "Here's 100 to choose from: http://www.vim.org/scripts/script.php?script_id=625
 "colorscheme railscasts_alt
 "colorscheme desert
-"set background=dark
 "colorscheme molokai
-colorscheme solarized
+colorscheme jellybeans
 
 ""
 "" Miscellaneous stuff

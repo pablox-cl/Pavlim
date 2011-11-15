@@ -1,6 +1,11 @@
+# internal use, no point in tracking them
 autoload/
 tmp/
 
 # ignoring non-git-modules plugins
 bundle/scratch
 bundle/conque-shell
+
+# these files are personal, so they shouldn't be tracked
+vimrc.before
+vimrc.after

@@ -55,7 +55,7 @@ set number                            " Show line numbers OR,...
 "set autowrite                         " Write the old file out when switching between files
 "set mouse=a
 "set mousehide                         " Hide mouse when typing
-"set hidden                            " Switch between buffers without saving
+set hidden                            " Switch between buffers without saving
 
 filetype plugin indent on             " Enable filetype use
 syntax enable                         " Turn on syntax highlighting allowing local overrides

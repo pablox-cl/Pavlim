@@ -168,7 +168,7 @@ let python_space_error_highlight = 1
 let ruby_space_errors = 1
 
 " Switch to working directory of the open file
-autocmd BufEnter * lcd %:p:h
+autocmd BufEnter * if expand('%:p') !~ '://' | cd %:p:h | endif
 
 "
 " Tags
@@ -235,9 +235,6 @@ map <Up> gk
 
 " Shortcut for editing  vimrc file in a new tab
 nmap <Leader>ev :tabedit $MYVIMRC<CR>
-
-" Automatically change current directory to that of the file in the buffer
-autocmd BufEnter * cd %:p:h
 
 " Bubble single lines (with unimpaired plugin)
 " If you want an alternative way to do this without a plugin

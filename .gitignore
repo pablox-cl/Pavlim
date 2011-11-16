@@ -9,3 +9,4 @@ bundle/conque-shell
 # these files are personal, so they shouldn't be tracked
 vimrc.before
 vimrc.after
+custom.rake

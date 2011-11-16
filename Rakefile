@@ -118,14 +118,21 @@ end
 install_plugin "scratch",       "http://www.vim.org/scripts/download_script.php?src_id=2050"
 install_plugin "conque-shell",  "http://conque.googlecode.com/files/conque_2.3.tar.gz"
 
+if File.exists?(custom_rake = "#{cwd}/custom.rake")
+  puts "Loading custom rake file"
+  import(custom_rake)
+end
+
 desc "Link (g)vimrc to ~/.(g)vimrc"
 task :link_vim_files do
   fancy_output "Linking files"
   ln_sf(cwd, vim_dir, verbose: true) unless vim_dir == cwd
-  %w[ vimrc gvimrc ].each do |file|
+  %w[ vimrc gvimrc vimrc.before vimrc.after ].each do |file|
     dest = "#{home}/.#{file}"
     src = "#{vim_dir}/#{file}"
-    ln_sf(src, dest, verbose: true)
+    if File.exists?(file)
+      ln_sf src, dest, verbose: true
+    end
   end
 end
 

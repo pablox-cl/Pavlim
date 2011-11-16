@@ -1,5 +1,4 @@
 module VIM
-  Files = %w[ vim vimrc gvimrc ]
   Dirs = %w[ autoload tmp/undo tmp/backup tmp/swap tmp/download ]
 end
 
@@ -47,7 +46,7 @@ end
 desc "Backup original vim dotfiles"
 task :backup do
   fancy_output "Backing up your old files..."
-  VIM::Files.each do |file|
+  %w[ vim vimrc gvimrc ].each do |file|
     file = "#{home}/.#{file}"
     next if file == vim_dir
     if File.exists?(file) and not File.symlink?(file)

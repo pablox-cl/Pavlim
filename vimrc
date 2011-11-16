@@ -88,7 +88,7 @@ let &guicursor = &guicursor . ",a:blinkon0"
 
 " Ever notice a slight lag after typing the Leader key + command? This lowers
 " the timeout.
-"set timeoutlen=500
+set timeoutlen=300
 
 " Statusline setup
 " A great article about it:

@@ -40,7 +40,7 @@ end
 
 desc "Update Pavlim"
 task :update_pavlim do
-  fancy_output "Pulling last version"
+  fancy_output "Pulling latest version"
   system "git pull git://github.com/PaBLoX-CL/Pavlim.git"
 end
 
@@ -52,7 +52,7 @@ task :backup do
     next if file == vim_dir
     if File.exists?(file) and not File.symlink?(file)
       mv file, "#{file}.old", verbose: true
-    elsif File.symlink?(file)
+    else File.symlink?(file)
       old_dest = File.readlink(file)
       if File.readlink(file).include? vim_dir
         ln_sf "#{vim_dir}.old/#{File.basename(old_dest)}", "#{file}.old", verbose: true

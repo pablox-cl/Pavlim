@@ -226,8 +226,8 @@ nmap <C-k> <C-w>k
 nmap <C-l> <C-w>l
 
 " Easier tab navigation
-noremap <silent> <C-Tab> :tabnext<cr>
-noremap <silent> <C-S-Tab> :tabprevious<cr>
+" noremap <silent> <C-Tab> :tabnext<cr>
+" noremap <silent> <C-S-Tab> :tabprevious<cr>
 
 " Map the arrow keys to be based on display lines, not physical lines
 map <Down> gj
@@ -421,8 +421,8 @@ let NERDChristmasTree = 1
 let NERDTreeHighlightCursorline = 1
 let NERDTreeMapActivateNode='<CR>'
 
-" BufExplorer - easier invoke keys
-nnoremap <Leader>bb :BufExplorer<cr>
+" MiniBufExplorer - switch with s-tab and c-s-tab
+let g:miniBufExplMapCTabSwitchBufs = 1
 
 " CTags
 map <Leader>rt :!ctags --extra=+f -R *<CR><CR>

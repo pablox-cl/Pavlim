@@ -63,14 +63,22 @@ syntax enable                         " Turn on syntax highlighting allowing loc
 " Session settings
 set sessionoptions=buffers,curdir,folds,resize,tabpages,winpos,winsize
 
-" Source the vimrc file after saving it.
+" Source the (g)vimrc(.before|.after|.mvim) file after saving it on all instances.
 " This way, you don't have to reload Vim to see the changes.
 function! UpdateVimRC()
   for server in split(serverlist())
-    call remote_send(server, '<Esc>:source $MYVIMRC<CR>')
+    call remote_send(server, '<Esc>:source $MYVIMRC<CR>
+                            \ <Esc>:source $MYGVIMRC<CR>
+                            \ <Esc>:source ~/.vim/vimrc.mvim<CR>')
+    if filereadable(expand("~/.vimrc.before"))
+      call remote_send(server, '<Esc>:source ~/.vim/vimrc.before<CR>')
+    endif
+    if filereadable(expand("~/.vimrc.after"))
+      call remote_send(server, '<Esc>:source ~/.vim/vimrc.after<CR>')
+    endif
   endfor
 endfunction
-autocmd! BufWritePost *vimrc call UpdateVimRC()
+autocmd! BufWritePost *vimrc* call UpdateVimRC()
 
 " No blinking cursor. See http://www.linuxpowertop.org/known.php
 let &guicursor = &guicursor . ",a:blinkon0"

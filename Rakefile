@@ -8,7 +8,7 @@ vim_dir = "#{home}/.vim"
 
 task :req_dirs do
   VIM::Dirs.each do |dir|
-    mkdir_p dir
+    directory dir
   end
 end
 
@@ -68,54 +68,97 @@ def install_plugin(name, download_link=nil)
 
   namespace :plugin do
 
-    cwd = Dir.getwd
-    tmp_dir = "#{cwd}/tmp/download"
-    bundle_dir = "#{cwd}/bundle"
+    @cwd = Dir.getwd
+    @tmp_dir = "#{@cwd}/tmp/download"
+    @bundle_dir = "#{@cwd}/bundle"
 
     def ignore_local(name)
-      open("#{cwd}/.git/info/exclude", 'a') do |f|
-        f << "bundle/#{name}"
+      open("#{@cwd}/.git/info/exclude", 'a') do |f|
+        f << "\nbundle/#{name}/"
       end
     end
 
     desc "Install #{name} plugin"
     task name => :req_dirs do
 
-      if download_link.include?("vim.org")
-        filename = %x(curl --silent --head #{download_link} | grep attachment).strip![/filename=(.+)/,1]
+      if download_link
+
+        if download_link.include?("vim.org")
+          filename = %x(curl --silent --head #{download_link} | grep attachment).strip![/filename=(.+)/,1]
+        else
+          filename = File.basename(download_link)
+        end
+
+        system "curl #{download_link} > tmp/download/#{filename}"
+
+        case filename
+        when /\.zip$/
+          system "unzip -o tmp/download/#{filename} -d bundle/#{name}"
+        when /\.vim$/
+          mkdir_p "#{Dir.getwd}/bundle/#{name}/plugin"
+          mv "#{tmp_dir}/#{filename}", "#{bundle_dir}/#{name}/plugin/", verbose: true
+        when /tar\.gz$/
+          mkdir_p "#{tmp_dir}/#{name}"
+          mkdir_p "#{bundle_dir}/#{name}"
+          dirname = File.basename(filename, '.tar.gz')
+
+          system "tar xf #{tmp_dir}/#{filename} -C #{tmp_dir}/#{name}"
+
+          puts "Moving from tmp/download/#{name}/#{dirname} to bundle/#{name}"
+          mv Dir["#{tmp_dir}/#{name}/#{dirname}/*"], "#{bundle_dir}/#{name}", force: true
+        end
+
       else
-        filename = File.basename(download_link)
-      end
 
-      system "curl #{download_link} > tmp/download/#{filename}"
+        yield if block_given?
 
-      case filename
-      when /\.zip$/
-        system "unzip -o tmp/download/#{filename} -d bundle/#{name}"
-      when /\.vim$/
-        mkdir_p "#{Dir.getwd}/bundle/#{name}/plugin"
-        mv "#{tmp_dir}/#{filename}", "#{bundle_dir}/#{name}/plugin/", verbose: true
-      when /tar\.gz$/
-        mkdir_p "#{tmp_dir}/#{name}"
-        mkdir_p "#{bundle_dir}/#{name}"
-        dirname = File.basename(filename, '.tar.gz')
-
-        system "tar xf #{tmp_dir}/#{filename} -C #{tmp_dir}/#{name}"
-
-        puts "Moving from tmp/download/#{name}/#{dirname} to bundle/#{name}"
-        mv Dir["#{tmp_dir}/#{name}/#{dirname}/*"], "#{bundle_dir}/#{name}", force: true
       end
 
       ignore_local name
 
     end
-
   end
-
 end
 
 install_plugin "scratch",       "http://www.vim.org/scripts/download_script.php?src_id=2050"
 install_plugin "conque-shell",  "http://conque.googlecode.com/files/conque_2.3.tar.gz"
+
+install_plugin "janus-themes" do
+  # https://github.com/carlhuda/janus/blob/master/Rakefile
+  # Custom version of railscasts theme
+  unless File.exists? "#{cwd}/bundle/color-sampler/colors/railscasts.vim"
+    puts "You have to install the color-sampler plugin first"
+  end
+
+  # TODO: I don't understand why the Rake::DSL#directory
+  # doesn't work and I have to use mkdir_p
+  mkdir_p "bundle/janus-themes/colors"
+
+  File.open(File.expand_path("../bundle/janus-themes/colors/railscasts+.vim", __FILE__), "w") do |file|
+    file.puts <<-VIM.gsub(/^ +/, "").gsub("<SP>", " ")
+      runtime colors/railscasts.vim
+      let g:colors_name = "railscasts+"
+
+      set fillchars=vert:\\<SP>
+      set fillchars=stl:\\<SP>
+      set fillchars=stlnc:\\<SP>
+      hi  StatusLine guibg=#cccccc guifg=#000000
+      hi  VertSplit  guibg=#dddddd
+    VIM
+  end
+
+  # Custom version of jellybeans theme
+  File.open(File.expand_path("../bundle/janus-themes/colors/jellybeans+.vim", __FILE__), "w") do |file|
+    file.puts <<-VIM.gsub(/^      /, "")
+      runtime colors/jellybeans.vim
+      let g:colors_name = "jellybeans+"
+
+      hi  VertSplit    guibg=#888888
+      hi  StatusLine   guibg=#cccccc guifg=#000000
+      hi  StatusLineNC guibg=#888888 guifg=#000000
+    VIM
+  end
+end
 
 if File.exists?(custom_rake = "#{cwd}/custom.rake")
   puts "Loading custom rake file"

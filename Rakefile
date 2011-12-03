@@ -64,6 +64,7 @@ task :backup do
   end
 end
 
+
 def install_plugin(name, download_link=nil)
 
   namespace :plugin do
@@ -72,9 +73,16 @@ def install_plugin(name, download_link=nil)
     @tmp_dir = "#{@cwd}/tmp/download"
     @bundle_dir = "#{@cwd}/bundle"
 
+    def string_exists?(name)
+      f = open("#{@cwd}/.git/info/exclude", 'r')
+      true unless f.grep(/#{name}/).empty?
+    end
+
     def ignore_local(name)
-      open("#{@cwd}/.git/info/exclude", 'a') do |f|
-        f << "\nbundle/#{name}/"
+      unless string_exists?(name)
+        open("#{@cwd}/.git/info/exclude", 'a') do |f|
+          f << "\nbundle/#{name}/"
+        end
       end
     end
 

@@ -1,7 +1,36 @@
-[submodule "bundle/tools/ack"]
-	path = bundle/tools/ack
-	url = git://github.com/mileszs/ack.vim.git
+# Core
+[submodule "bundle/core/pathogen"]
+	path = bundle/core/pathogen
+	url = https://github.com/tpope/vim-pathogen
 	ignore = dirty
+
+# Colors
+[submodule "bundle/colors/blackboard"]
+	path = bundle/colors/blackboard
+	url = https://github.com/nelstrom/vim-blackboard.git
+	ignore = dirty
+[submodule "bundle/colors/color-sampler"]
+	path = bundle/colors/color-sampler
+	url = git://github.com/vim-scripts/Color-Sampler-Pack.git
+	ignore = dirty
+[submodule "bundle/colors/csapprox"]
+	path = bundle/colors/csapprox
+	url = git://github.com/godlygeek/csapprox.git
+	ignore = dirty
+[submodule "bundle/colors/irblack"]
+	path = bundle/colors/irblack
+	url = git://github.com/wgibbs/vim-irblack.git
+	ignore = dirty
+[submodule "bundle/colors/solarized"]
+	path = bundle/colors/solarized
+	url = git://github.com/altercation/vim-colors-solarized.git
+	ignore = dirty
+[submodule "bundle/colors/vividchalk"]
+	path = bundle/colors/vividchalk
+	url = git://github.com/tpope/vim-vividchalk.git
+	ignore = dirty
+
+# Languages (or filetypes)
 [submodule "bundle/langs/coffee-script"]
 	path = bundle/langs/coffee-script
 	url = git://github.com/kchmck/vim-coffee-script.git
@@ -9,6 +38,56 @@
 [submodule "bundle/langs/cucumber"]
 	path = bundle/langs/cucumber
 	url = git://github.com/tpope/vim-cucumber.git
+	ignore = dirty
+[submodule "bundle/langs/javascript"]
+	path = bundle/langs/javascript
+	url = git://github.com/pangloss/vim-javascript.git
+	ignore = dirty
+[submodule "bundle/langs/markdown"]
+	path = bundle/langs/markdown
+	url = git://github.com/tpope/vim-markdown.git
+	ignore = dirty
+[submodule "bundle/langs/ragtag"]
+	path = bundle/langs/ragtag
+	url = git://github.com/tpope/vim-ragtag.git
+	ignore = dirty
+[submodule "bundle/langs/rails"]
+	path = bundle/langs/rails
+	url = git://github.com/tpope/vim-rails.git
+	ignore = dirty
+[submodule "bundle/langs/rspec"]
+	path = bundle/langs/rspec
+	url = git://github.com/taq/vim-rspec.git
+	ignore = dirty
+[submodule "bundle/langs/ruby-refactoring"]
+	path = bundle/langs/ruby-refactoring
+	url = git://github.com/ecomba/vim-ruby-refactoring.git
+	ignore = dirty
+[submodule "bundle/langs/scala"]
+	path = bundle/langs/scala
+	url = git://github.com/bdd/vim-scala.git
+	ignore = dirty
+[submodule "bundle/langs/syntastic"]
+	path = bundle/langs/syntastic
+	url = git://github.com/scrooloose/syntastic.git
+	ignore = dirty
+[submodule "bundle/langs/textile"]
+	path = bundle/langs/textile
+	url = git://github.com/timcharper/textile.vim.git
+	ignore = dirty
+[submodule "bundle/langs/zencoding"]
+	path = bundle/langs/zencoding
+	url = git://github.com/mattn/zencoding-vim.git
+	ignore = dirty
+
+# Tools
+[submodule "bundle/tools/ack"]
+	path = bundle/tools/ack
+	url = git://github.com/mileszs/ack.vim.git
+	ignore = dirty
+[submodule "bundle/tools/easymotion"]
+	path = bundle/tools/easymotion
+	url = git://github.com/Lokaltog/vim-easymotion.git
 	ignore = dirty
 [submodule "bundle/tools/endwise"]
 	path = bundle/tools/endwise
@@ -26,45 +105,37 @@
 	path = bundle/tools/git
 	url = git://github.com/tpope/vim-git.git
 	ignore = dirty
-[submodule "bundle/langs/haml"]
-	path = bundle/langs/haml
-	url = git://github.com/tpope/vim-haml.git
-	ignore = dirty
 [submodule "bundle/tools/indent-object"]
 	path = bundle/tools/indent-object
 	url = git://github.com/michaeljsmith/vim-indent-object.git
-	ignore = dirty
-[submodule "bundle/langs/javascript"]
-	path = bundle/langs/javascript
-	url = git://github.com/pangloss/vim-javascript.git
 	ignore = dirty
 [submodule "bundle/tools/jslint"]
 	path = bundle/tools/jslint
 	url = git://github.com/hallettj/jslint.vim.git
 	ignore = dirty
-[submodule "bundle/langs/markdown"]
-	path = bundle/langs/markdown
-	url = git://github.com/tpope/vim-markdown.git
+[submodule "bundle/tools/minibufexpl"]
+	path = bundle/tools/minibufexpl
+	url = git://github.com/fholgado/minibufexpl.vim.git
 	ignore = dirty
 [submodule "bundle/tools/nerdtree"]
 	path = bundle/tools/nerdtree
 	url = git://github.com/scrooloose/nerdtree.git
 	ignore = dirty
-[submodule "bundle/langs/rails"]
-	path = bundle/langs/rails
-	url = git://github.com/tpope/vim-rails.git
-	ignore = dirty
-[submodule "bundle/langs/rspec"]
-	path = bundle/langs/rspec
-	url = git://github.com/taq/vim-rspec.git
-	ignore = dirty
-[submodule "bundle/langs/scala"]
-	path = bundle/langs/scala
-	url = git://github.com/bdd/vim-scala.git
-	ignore = dirty
 [submodule "bundle/tools/searchfold"]
 	path = bundle/tools/searchfold
 	url = git://github.com/vim-scripts/searchfold.vim.git
+	ignore = dirty
+[submodule "bundle/tools/session"]
+	path = bundle/tools/session
+	url = git://github.com/xolox/vim-session.git
+	ignore = dirty
+[submodule "bundle/tools/snipmate"]
+	path = bundle/tools/snipmate
+	url = git://github.com/garbas/vim-snipmate.git
+	ignore = dirty
+[submodule "bundle/tools/snipmate-snippets"]
+	path = bundle/tools/snipmate-snippets
+	url = git://github.com/honza/snipmate-snippets.git
 	ignore = dirty
 [submodule "bundle/tools/supertab"]
 	path = bundle/tools/supertab
@@ -74,10 +145,6 @@
 	path = bundle/tools/surround
 	url = git://github.com/tpope/vim-surround.git
 	ignore = dirty
-[submodule "bundle/langs/syntastic"]
-	path = bundle/langs/syntastic
-	url = git://github.com/scrooloose/syntastic.git
-	ignore = dirty
 [submodule "bundle/tools/tabular"]
 	path = bundle/tools/tabular
 	url = git://github.com/godlygeek/tabular.git
@@ -86,87 +153,25 @@
 	path = bundle/tools/taglist
 	url = git://github.com/vim-scripts/taglist.vim.git
 	ignore = dirty
-[submodule "bundle/langs/textile"]
-	path = bundle/langs/textile
-	url = git://github.com/timcharper/textile.vim.git
+[submodule "bundle/tools/tcomment"]
+	path = bundle/tools/tcomment
+	url = git://github.com/tomtom/tcomment_vim.git
 	ignore = dirty
 [submodule "bundle/tools/unimpaired"]
 	path = bundle/tools/unimpaired
 	url = git://github.com/tpope/vim-unimpaired.git
 	ignore = dirty
-[submodule "bundle/langs/zencoding"]
-	path = bundle/langs/zencoding
-	url = git://github.com/mattn/zencoding-vim.git
-	ignore = dirty
 [submodule "bundle/tools/zoomwin"]
 	path = bundle/tools/zoomwin
 	url = git://github.com/vim-scripts/ZoomWin.git
 	ignore = dirty
-[submodule "bundle/colors/color-sampler"]
-	path = bundle/colors/color-sampler
-	url = git://github.com/vim-scripts/Color-Sampler-Pack.git
-	ignore = dirty
-[submodule "bundle/colors/irblack"]
-	path = bundle/colors/irblack
-	url = git://github.com/wgibbs/vim-irblack.git
-	ignore = dirty
-[submodule "bundle/colors/solarized"]
-	path = bundle/colors/solarized
-	url = git://github.com/altercation/vim-colors-solarized.git
-	ignore = dirty
-[submodule "bundle/colors/vividchalk"]
-	path = bundle/colors/vividchalk
-	url = git://github.com/tpope/vim-vividchalk.git
-	ignore = dirty
-[submodule "bundle/tools/snipmate"]
-	path = bundle/tools/snipmate
-	url = git://github.com/garbas/vim-snipmate.git
-	ignore = dirty
+
+# Libraries
 [submodule "bundle/libs/addon-mw-utils"]
 	path = bundle/libs/addon-mw-utils
 	url = git://github.com/MarcWeber/vim-addon-mw-utils.git
 	ignore = dirty
-[submodule "bundle/tools/snipmate-snippets"]
-	path = bundle/tools/snipmate-snippets
-	url = git://github.com/honza/snipmate-snippets.git
-	ignore = dirty
 [submodule "bundle/libs/tlib"]
 	path = bundle/libs/tlib
 	url = git://github.com/tomtom/tlib_vim.git
-	ignore = dirty
-[submodule "bundle/langs/ragtag"]
-	path = bundle/langs/ragtag
-	url = git://github.com/tpope/vim-ragtag.git
-	ignore = dirty
-[submodule "bundle/colors/blackboard"]
-	path = bundle/colors/blackboard
-	url = https://github.com/nelstrom/vim-blackboard.git
-	ignore = dirty
-[submodule "bundle/tools/easymotion"]
-	path = bundle/tools/easymotion
-	url = git://github.com/Lokaltog/vim-easymotion.git
-	ignore = dirty
-[submodule "bundle/langs/ruby-refactoring"]
-	path = bundle/langs/ruby-refactoring
-	url = git://github.com/ecomba/vim-ruby-refactoring.git
-	ignore = dirty
-[submodule "bundle/tools/tcomment"]
-	path = bundle/tools/tcomment
-	url = git://github.com/tomtom/tcomment_vim.git
-	ignore = dirty
-[submodule "bundle/colors/csapprox"]
-	path = bundle/colors/csapprox
-	url = git://github.com/godlygeek/csapprox.git
-	ignore = dirty
-[submodule "bundle/tools/session"]
-	path = bundle/tools/session
-	url = git://github.com/xolox/vim-session.git
-	ignore = dirty
-[submodule "bundle/tools/minibufexpl"]
-	path = bundle/tools/minibufexpl
-	url = git://github.com/fholgado/minibufexpl.vim.git
-	ignore = dirty
-[submodule "bundle/core/pathogen"]
-	path = bundle/core/pathogen
-	url = https://github.com/tpope/vim-pathogen
 	ignore = dirty

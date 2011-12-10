@@ -1,4 +1,7 @@
 set nocompatible                      " Forget about vi compatibility... who cares?
+let g:pavlim_path = fnamemodify(resolve(expand("<sfile>:p")), ":h")
+
+exe 'source ' .  g:pavlim_path . '/bundle/core/pavlim/plugin/pavlim.vim'
 
 ""
 "" Customizations
@@ -9,24 +12,15 @@ if filereadable(expand("~/.vimrc.before"))
   source ~/.vimrc.before
 endif
 
-" TODO
-"let s:current_file = expand("<sfile>:p")
-
-"function s:add_group(name)
-"  let resolved = resolve(s:current_file)
-"  let dir = fnamemodify(resolved, ":h")
-"  let file = dir . "/" . a:name
-"  call pathogen#runtime_prepend_subdirectories(file)
-"endfunction
-
-
 ""
 "" Pathogen setup
 ""
 
-call pathogen#infect()
-" TODO
-" call s:add_group("name-a-group-here")
+call pavlim#add_bundle('langs')
+call pavlim#add_bundle('tools')
+call pavlim#add_bundle('libs')
+call pavlim#add_bundle('colors')
+call pavlim#add_bundle('core')
 
 ""
 "" Basic configuration

@@ -19,20 +19,8 @@ def fancy_output(message)
   puts "*" * (n + 5)
 end
 
-task :check_curl do
-  system "hash curl 2>&- || { echo >&2 \
-    'curl is needed to run this, please install it first.'; }"
-end
-
-desc "Install or update pathogen"
-task :pathogen_install => [:check_curl, :req_dirs] do
-  fancy_output "Downloading pathogen from 'https://github.com/tpope/vim-pathogen/' ..."
-  system "curl -o autoload/pathogen.vim \
-    https://raw.github.com/tpope/vim-pathogen/HEAD/autoload/pathogen.vim"
-end
-
 desc "Init pavlim and update vim plugins"
-task :init => [:req_dirs, :pathogen_install] do
+task :init => :req_dirs do
   fancy_output "Updating all plugins"
   system "git submodule update --init"
 end
@@ -197,7 +185,7 @@ task :default => [
   :update_docs
 ]
 
-desc "Install the bundle: get pathogen, get the plugins, backup your old files and link the new ones"
+desc "Install the distribution: get the plugins, backup your old files and link the new ones"
 task :install => [
   :backup,
   :init,
@@ -208,7 +196,7 @@ task :install => [
     isn't working as it should ( :"""
 end
 
-desc "Updates Pathogen, Pavlim and the plugins"
+desc "Updates Pavlim and the plugins"
 task :update => [
   :update_pavlim,
   :init,

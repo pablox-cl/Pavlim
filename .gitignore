@@ -1,5 +1,4 @@
 # internal use, no point in tracking them
-autoload/
 tmp/
 
 # ignoring non-git-modules plugins

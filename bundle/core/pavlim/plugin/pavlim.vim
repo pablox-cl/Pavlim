@@ -1,3 +1,6 @@
+" Source pathogen
+exe 'source ' . g:pavlim_path . '/bundle/core/pathogen/autoload/pathogen.vim'
+
 " Add a bundle
 function! pavlim#add_bundle(name)
   let current = expand("<sfile>:p")

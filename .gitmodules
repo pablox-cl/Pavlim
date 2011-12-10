@@ -166,3 +166,7 @@
 	path = bundle/tools/minibufexpl
 	url = git://github.com/fholgado/minibufexpl.vim.git
 	ignore = dirty
+[submodule "bundle/core/pathogen"]
+	path = bundle/core/pathogen
+	url = https://github.com/tpope/vim-pathogen
+	ignore = dirty
